@@ -186,4 +186,35 @@ class BlogController extends Controller
 
     }
 
+    public function upload(Request $request)
+    {
+        
+        $image = $request->file('upload');
+        $file_ext = $image->getClientOriginalExtension();
+        if($file_ext == 'png' || $file_ext == 'JPG' || $file_ext == 'jpg' || $file_ext == 'jpeg' || $file_ext == 'svg' || $file_ext == 'gif')
+        {
+    
+            $img = $request->file('upload');
+            $filename = time() . '.' . $img->getClientOriginalExtension();
+            $location = 'templateEditor/blog/'. $filename;
+            Image::make($img)->save($location);
+            
+         //   $CKEditorFuncNum = $request->input('CKEditorFuncNum');
+            $imagePath = "/templateEditor/blog/";
+            $url = $imagePath . $filename;
+
+            $msg = 'Image successfully uploaded'; 
+            $re = "<script>window.parent.CKEDITOR.tools.callFunction(1, '{$url}', '{$msg}')</script>";
+
+            @header('Content-type: text/html; charset=utf-8'); 
+            echo $re;
+        
+        }else{
+        
+            echo "<script>window.alert('Only images with extension png,jpg,svg,gif are allowed!')</script>";
+        
+        }
+
+    }
+
 }

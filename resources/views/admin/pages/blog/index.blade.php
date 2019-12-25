@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="content-header-right col-md-3 col-12">
-      <a href="#" title="Create new announcement">
+      <a href="{{ route('admin.blog.create') }}" title="Create new blog post">
         <button class="btn btn-danger btn-sm box-shadow-2 round btn-min-width pull-right" type="button">New Blog Category</button>
       </a>
     </div>

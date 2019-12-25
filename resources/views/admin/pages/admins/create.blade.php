@@ -29,7 +29,7 @@
     </div>
     
     <div class="content-header-right col-md-3 col-12">
-      <a href="#" class="btn btn-sm btn-danger box-shadow-2 round btn-min-width pull-right">View All</a>
+      <a href="{{ route('admin.administrators.index') }}" class="btn btn-sm btn-danger box-shadow-2 round btn-min-width pull-right">View All</a>
     </div>  
 
 @endsection

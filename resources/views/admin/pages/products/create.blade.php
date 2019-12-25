@@ -56,7 +56,7 @@
 
 @section('breadcrums')
 	
-	  <div class="content-header-left col-md-9 col-12 mb-2 breadcrumb-new">
+	  <div class="content-header-left col-md-12 col-12 mb-2 breadcrumb-new">
       <h3 class="content-header-title mb-0 d-inline-block">New Product</h3>
       <div class="row breadcrumbs-top d-inline-block">
         <div class="breadcrumb-wrapper col-12">
@@ -71,10 +71,6 @@
         </div>
       </div>
     </div>
-    
-    <div class="content-header-right col-md-3 col-12">
-      <a href="#" class="btn btn-sm btn-danger box-shadow-2 round btn-min-width pull-right">View All</a>
-    </div>  
 
 @endsection
 
