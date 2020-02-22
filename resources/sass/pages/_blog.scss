@@ -210,14 +210,14 @@
 
 		&:hover,
 		&:focus {
-			color: $primary-color;
+			color: #ff726f !important;
 		}
 	}
 
 	li.active {
 		a {
-			color: $primary-color;
-			box-shadow: 0 1px 0 $primary-color;
+			color: #ff726f !important;
+			box-shadow: 0 1px 0 #ff726f !important;
 		}
 	}
 }

@@ -10,8 +10,13 @@ class Product extends Model
         'title',
         'category_id',
         'description',
+        'main_description',
         'price',
         'units_in_stock',
+        'page_title',
+        'page_description',
+        'page_keywords',
+        'slug',
         'status'
     ];
 

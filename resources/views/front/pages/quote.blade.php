@@ -1,15 +1,40 @@
 @extends('welcome')
 
+@section('title')
+    {{ 'Packaging Expert | Request a Quote'  }}
+@endsection
+
+@section('keywords')
+    {{ 'Packaging Expert | Request a Quote' }}
+@endsection
+
+@section('description')
+    {{ 'Packaging Expert | Request a Quote' }}
+@endsection
+
 @section('style')
+
+<style>
+
+.btn-outline-primary-2 {
+    border: 1px solid #0A72E8 !important;
+    color: #0A72E8 !important;
+}
+.btn-outline-primary-2:hover {
+    background-color: #0A72E8 !important;
+    color: #ffffff !important;
+}
+
+</style>
 
 @endsection
 
 @section('content')
 
 <main class="main">
-    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+    <div class="page-header text-center" style="background-image: url('/assets/images/page-header-bg.jpg')">
         <div class="container">
-            <h1 class="page-title">Request a Quote<span>Get a free quote</span></h1>
+            <h1 class="page-title">Request a Quote<span style="color: #0A72E8 !important;">Get a free quote</span></h1>
         </div><!-- End .container -->
     </div><!-- End .page-header -->
     <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
@@ -28,7 +53,7 @@
                 <div class="col-md-9 col-lg-7">
                     <div class="text-center">
                     <h2 class="title mb-1">Request a Custom Quote</h2><!-- End .title mb-2 -->
-                    <p class="lead text-success">
+                    <p class="lead" style="color: red !important;">
                         Let us know what you need! Box dimensions, quantities of boxes you need, design. We can help.
                     </p><!-- End .lead text-primary -->
                     </div><!-- End .text-center -->
@@ -69,29 +94,29 @@
 
                 </script>
             @endif
-            <div class="row justify-content-center mt-4">
+            <div class="row justify-content-center bg-light-2 pt-4 pb-4 mt-4">
                 <div class="col-md-10 col-lg-10">
                     <form method="post" action="{{ route('quote.store') }}" class="contact-form mb-2">
                         {{ csrf_field() }}
                         <div class="row">
                             <div class="col-sm-4">
-                                <label for="cname" style="font-weight: 600;">Name <span style="font-weight: 600;" class="text-danger">*</span></label>
+                                <label for="cname" style="font-weight: 600;">Name <span style="font-weight: 600; color: red !important;">*</span></label>
                                 <input type="text" class="form-control" id="cname" name="full_name" placeholder="Name *" required>
                             </div><!-- End .col-sm-4 -->
 
                             <div class="col-sm-4">
-                                <label for="cemail" style="font-weight: 600;">Email <span style="font-weight: 600;" class="text-danger">*</span></label>
+                                <label for="cemail" style="font-weight: 600;">Email <span style="font-weight: 600; color: red !important;">*</span></label>
                                 <input type="email" class="form-control" id="cemail" name="email" placeholder="Email *" required>
                             </div><!-- End .col-sm-4 -->
 
                             <div class="col-sm-4">
-                                <label for="cphone" style="font-weight: 600;">Phone <span style="font-weight: 600;" class="text-danger">*</span></label>
+                                <label for="cphone" style="font-weight: 600;">Phone <span style="font-weight: 600; color: red !important;">*</span></label>
                                 <input type="tel" class="form-control" id="cphone" name="phone" placeholder="Phone *" required>
                             </div><!-- End .col-sm-4 -->
                         </div><!-- End .row -->
                         <div class="row">
                             <div class="col-sm-6">
-                                <label for="cboxtype" style="font-weight: 600;">Box Type <span style="font-weight: 600;" class="text-danger">*</span></label>
+                                <label for="cboxtype" style="font-weight: 600;">Box Type <span style="font-weight: 600; color: red !important;">*</span></label>
                                 <select id="cboxtype" name="box_type" class="form-control" required>
                                     @foreach($products as $product)
                                     <option value="{{ $product->id }}">{{ $product->title }}</option>
@@ -199,6 +224,7 @@
             </div><!-- End .row -->
         </div><!-- End .container -->
     </div><!-- End .page-content -->
+    @include('front.partials._quote')
 </main><!-- End .main -->
 
 @endsection

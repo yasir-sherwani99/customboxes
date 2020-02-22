@@ -12,4 +12,5 @@
                     </div> 
                 </div>  --> 
              <!--   <img src="assets/images/demos/demo-24/slider/back-2.png" width="1903" height="1000" alt="Slider Back Image"> -->
+                
             </div>  

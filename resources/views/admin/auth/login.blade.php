@@ -43,11 +43,11 @@ data-open="click" data-menu="vertical-menu-modern" data-col="1-column">
                 <div class="card-title text-center">
                   <div class="row">
                     <div class="col-12">
-                      <a href="{{ url('/') }}"><img src="{{ URL::asset('assets/images/logos/Logo_new_others.png') }}" alt="CustomBoxesExpert Logo" class="img-fluid"></a>
+                      <a href="{{ url('/') }}"><img src="{{ URL::asset('assets/images/logos/Logo-WS-2.png') }}" alt="PackagingXpert Logo" class="img-fluid"></a>
                     </div>
                   </div>
                   <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2">
-                     <span>Login with CustomBoxesExpert</span> 
+                     <span>Login with PackagingXpert</span> 
                   </h6>
                 </div>
 
@@ -91,7 +91,7 @@ data-open="click" data-menu="vertical-menu-modern" data-col="1-column">
                    <!-- <span>New to Modern ?</span> -->
                   </p>
                   <div class="card-body text-center">
-                    2019 &copy; All Copyright Reserved to <a href="http://customboxesexpert.com/" target="_blank">CustomBoxesExpert.</a>
+                    2020 &copy; All Copyright Reserved to <a href="http://packagingxpert.com/" target="_blank">PackagingXpert.</a>
                   </div>
                 </div>
               </div>

@@ -13,9 +13,9 @@
     padding: .85rem 2rem;
     font-size: 1.4rem;
     line-height: 1.5;
-    font-weight: 300;
-    color: #777;
-    background-color: #fafafa;
+    font-weight: 300 !important;
+    color: #777 !important;
+    background-color: #ffffff !important;
     border: 1px solid #ebebeb;
     border-radius: 0;
     margin-bottom: 2rem;
@@ -34,7 +34,7 @@ select.form-control:not([size]):not([multiple]) {
 .form-control:focus {
     color: #777;
     background-color: #fff;
-    border-color: $primary-color;
+    border-color: $primary-color !important;
     box-shadow: none;
     outline: none !important;
 }

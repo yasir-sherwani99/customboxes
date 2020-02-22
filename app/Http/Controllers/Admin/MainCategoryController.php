@@ -38,8 +38,11 @@ class MainCategoryController extends Controller
 		    'status' => 'required'
 		]);
 
+        $slug = str_slug($request->title, '-');
+
 		$category = MainCategory::create([
 			            'title' => $request->title,
+                        'slug' => $slug,
 			            'status' => $request->status
 		        	]);
 
@@ -81,9 +84,12 @@ class MainCategoryController extends Controller
 		    'status' => 'required'
 		]);
 
+        $slug = str_slug($request->title, '-');
+
 		MainCategory::whereId($id)
 					->update([
 			            'title' => $request->title,
+                        'slug' => $slug, 
 			            'status' => $request->status
 		        	]);
 

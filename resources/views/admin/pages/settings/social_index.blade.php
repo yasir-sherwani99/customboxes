@@ -16,9 +16,7 @@
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a>
             </li>
-            <li class="breadcrumb-item"><a href="javascript:;">Settings</a>
-            </li>
-            <li class="breadcrumb-item"><a href="javascript:;">Client Portal</a>
+            <li class="breadcrumb-item"><a href="javascript:;">Website Settings</a>
             </li>
             <li class="breadcrumb-item active">Social Media
             </li>
@@ -42,7 +40,7 @@
   <script>
 
     $(document).ready(function(){
-        setTimeout(function(){ toastr.success("{{ Session::get('success') }}", 'CBE System Says', {"hideDuration": 500, positionClass: 'toast-top-right'}); }, 2000);
+        setTimeout(function(){ toastr.success("{{ Session::get('success') }}", 'PX System Says', {"hideDuration": 500, positionClass: 'toast-top-right'}); }, 2000);
     });
 
   </script>
@@ -63,7 +61,7 @@
   <script>
 
     $(document).ready(function(){
-        setTimeout(function(){ toastr.error('You must fill in all of the required fields!', 'CBE System Says', {"hideDuration": 500, positionClass: 'toast-top-right'}); }, 2000);
+        setTimeout(function(){ toastr.error('You must fill in all of the required fields!', 'PX System Says', {"hideDuration": 500, positionClass: 'toast-top-right'}); }, 2000);
     });
 
   </script>
@@ -74,28 +72,18 @@
     <section id="css-classes" class="card">
       <div class="card-header">
         <h4 class="card-title float-left">Social Media</h4>
-        <p class="float-right"><span class="text-bold-600 danger darken-4">*</span> These fields are required</p>
+        <p class="float-right"><a href="{{ route('admin.social_media.edit', $social->id) }}"><i class="la la-edit"></i></a></p>
       </div>
       <div class="card-content">
         <div class="card-body">
           <div class="card-text">
-            <form class="form" method="POST" action="{{ route('admin.social_media.update', $social->id) }}" novalidate>
-            {{ csrf_field() }}
-            {{ method_field('put') }}
             <div class="form-body">
               <div class="row">
                 <div class="col-md-12 col-12">
                   <div class="form-group">
                     <label for="facebook" class="text-bold-600 black">Facebook </label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">
-                          https://
-                        </span>
-                      </div> 
-                      <input type="text" id="facebook" class="form-control" value="{{ $social->facebook }}"  name="facebook">
-                    </div>
-                    <div class="help-block font-small-3"></div>
+                    <br/>
+                    <a href="https://{{ $social->facebook }}" target="_blank">https://{{ $social->facebook }}</a>
                   </div>
                 </div>
               </div>
@@ -103,15 +91,8 @@
                 <div class="col-md-12 col-12">
                   <div class="form-group">
                     <label for="twitter" class="text-bold-600 black">Twitter </label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon2">
-                          https://
-                        </span>
-                      </div> 
-                      <input type="text" id="twitter" class="form-control" value="{{ $social->twitter }}" name="twitter">
-                    </div>
-                    <div class="help-block font-small-3"></div>
+                    <br/>
+                    <a href="https://{{ $social->twitter }}" target="_blank">https://{{ $social->twitter }}</a>
                   </div>
                 </div>
               </div>
@@ -119,15 +100,8 @@
                 <div class="col-md-12 col-12">
                   <div class="form-group">
                     <label for="instagram" class="text-bold-600 black">Instagram </label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon3">
-                          https://
-                        </span>
-                      </div> 
-                      <input type="text" id="instagram" class="form-control" value="{{ $social->instagram }}" name="instagram">
-                    </div>
-                    <div class="help-block font-small-3"></div>
+                    <br/>
+                    <a href="https://{{ $social->instagram }}" target="_blank">https://{{ $social->instagram }}</a>
                   </div>
                 </div>
               </div>
@@ -135,15 +109,8 @@
                 <div class="col-md-12 col-12">
                   <div class="form-group">
                     <label for="youtube" class="text-bold-600 black">Youtube </label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon4">
-                          https://
-                        </span>
-                      </div> 
-                      <input type="text" id="youtube" class="form-control" value="{{ $social->youtube }}" name="youtube">
-                    </div>
-                    <div class="help-block font-small-3"></div>
+                    <br/>
+                    <a href="https://{{ $social->youtube }}" target="_blank">https://{{ $social->youtube }}</a>
                   </div>
                 </div>
               </div>
@@ -151,27 +118,12 @@
                 <div class="col-md-12 col-12">
                   <div class="form-group">
                     <label for="pinterest" class="text-bold-600 black">Pinterest </label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon5">
-                          https://
-                        </span>
-                      </div> 
-                      <input type="text" id="pinterest" class="form-control" value="{{ $social->pinterest }}" name="pinterest">
-                    </div>
-                    <div class="help-block font-small-3"></div>
+                    <br/>
+                    <a href="https://{{ $social->pinterest }}" target="_blank">https://{{ $social->pinterest }}</a>
                   </div>
                 </div>
               </div>
             </div>
-        
-            <div class="form-actions text-center">
-              <button type="submit" class="btn btn-info btn-glow px-2">
-                 <span class="loading-spinner" style="display: none;"><i class="la la-refresh spinner"></i>&nbsp;Processing... Please wait.</span> 
-               <span class="without-load">Update</span>
-              </button>
-            </div>
-            </form>
           </div>
         </div>
       </div>

@@ -24,14 +24,14 @@
                                                          ->get();
 
                                 @endphp
-                                <li>
-                                    <a href="{{ route('category.all.index', 1) }}" class="sf-with-ul">Industry Boxes</a>
+                                <li class="{{ request()->routeIs('industry-boxes.category.index') || request()->path() == 'main/industry-boxes' ? 'active' : '' }}">
+                                    <a href="{{ route('category.all.index', 'industry-boxes') }}" class="sf-with-ul">Industry Boxes</a>
                                     <ul>
                                         @foreach($industries as $industry)
-                                        <li><a href="{{ route('category.index', $industry->id) }}">{{ $industry->title }}</a></li>
+                                        <li class="{{ request()->path() == 'industry-boxes/'.$industry->slug ? 'active' : '' }}"><a href="{{ route('industry-boxes.category.index', $industry->slug) }}">{{ $industry->title }}</a></li>
                                         @endforeach
                                         <hr class="mb-1 mt-1"/>
-                                        <li class="active"><a href="{{ route('category.all.index', 1) }}"><span>View All</span></a></li>
+                                        <li class="active"><a href="{{ route('category.all.index', 'industry-boxes') }}" style="color: black !important; font-weight: 500 !important;"><span>View All</span></a></li>
                                     </ul>
                                 </li>
                                 @php
@@ -42,14 +42,14 @@
                                                          ->get();
 
                                 @endphp
-                                <li>
-                                    <a href="{{ route('category.all.index', 2) }}" class="sf-with-ul">Style Boxes</a>
+                                <li class="{{ request()->routeIs('style-boxes.category.index') || request()->path() == 'main/box-styles' ? 'active' : '' }}">
+                                    <a href="{{ route('category.all.index', 'box-styles') }}" class="sf-with-ul">Style Boxes</a>
                                     <ul>
                                         @foreach($styles as $style)
-                                        <li><a href="{{ route('category.index', $style->id) }}">{{ $style->title }}</a></li>
+                                        <li class="{{ request()->path() == 'style-boxes/'.$style->slug ? 'active' : '' }}"><a href="{{ route('style-boxes.category.index', $style->slug) }}">{{ $style->title }}</a></li>
                                         @endforeach
                                         <hr class="mb-1 mt-1"/>
-                                        <li class="active"><a href="{{ route('category.all.index', 2) }}"><span>View All</span></a></li>
+                                        <li class="active"><a href="{{ route('category.all.index', 'box-styles') }}" style="color: black !important; font-weight: 500 !important;"><span>View All</span></a></li>
                                     </ul>
                                 </li>
                                 @php
@@ -60,17 +60,17 @@
                                              ->get();
                                 
                                 @endphp
-                                <li>
-                                    <a href="{{ route('category.all.index', 3) }}" class="sf-with-ul">Other Products</a>
+                                <li class="{{ request()->routeIs('other-products.category.index') || request()->path() == 'main/other-products' ? 'active' : '' }}">
+                                    <a href="{{ route('category.all.index', 'other-products') }}" class="sf-with-ul">Other Products</a>
                                     <ul>
                                         @foreach($others as $other)
-                                        <li><a href="{{ route('category.index', $other->id) }}">{{ $other->title }}</a></li>
+                                        <li class="{{ request()->path() == 'other-products/'.$other->slug ? 'active' : '' }}"><a href="{{ route('other-products.category.index', $other->slug) }}">{{ $other->title }}</a></li>
                                         @endforeach
                                         <hr class="mb-1 mt-1"/>
-                                        <li class="active"><a href="{{ route('category.all.index', 3) }}"><span>View All</span></a></li>
+                                        <li class="active"><a href="{{ route('category.all.index', 'other-products') }}" style="color: black !important; font-weight: 500 !important;"><span>View All</span></a></li>
                                     </ul>
                                 </li>
-                                <li>
+                                <li class="{{ request()->path() == 'blogs' || request()->routeIs('blog.show') ? 'active' : '' }}">
                                     <a href="{{ route('blog.index') }}">Blog</a>
                                 </li>
                             </ul><!-- End .menu -->
@@ -80,10 +80,11 @@
                     <div class="header-right">
                         <div class="header-search">
                             <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
-                            <form action="#" method="get">
+                            <form name="search" action="{{ route('search') }}" method="POST">
+                                {{ csrf_field() }}
                                 <div class="header-search-wrapper">
                                     <label for="q" class="sr-only">Search</label>
-                                    <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
+                                    <input type="search" class="form-control" name="q" id="q" placeholder="Search products..." required>
                                 </div><!-- End .header-search-wrapper -->
                             </form>
                         </div><!-- End .header-search -->

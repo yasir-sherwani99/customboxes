@@ -16,17 +16,15 @@
 @section('breadcrums')
 	
 	<div class="content-header-left col-md-9 col-12 mb-2 breadcrumb-new">
-      <h3 class="content-header-title mb-0 d-inline-block">Blog Categories</h3>
+      <h3 class="content-header-title mb-0 d-inline-block">Blog Posts</h3>
       <div class="row breadcrumbs-top d-inline-block">
         <div class="breadcrumb-wrapper col-12">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a>
             </li>
-            <li class="breadcrumb-item"><a href="javascript:;">Blog</a>
-            </li>
             <li class="breadcrumb-item"><a href="javascript:;">Posts</a>
             </li>
-            <li class="breadcrumb-item active">View all
+            <li class="breadcrumb-item active">Blog Posts
             </li>
           </ol>
         </div>
@@ -34,7 +32,7 @@
     </div>
     <div class="content-header-right col-md-3 col-12">
       <a href="{{ route('admin.blog.create') }}" title="Create new blog post">
-        <button class="btn btn-danger btn-sm box-shadow-2 round btn-min-width pull-right" type="button">New Blog Category</button>
+        <button class="btn btn-danger btn-sm box-shadow-2 round btn-min-width pull-right" type="button">New Blog Post</button>
       </a>
     </div>
 
@@ -48,12 +46,12 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
-    <strong>Well done!</strong> <span class="text-bold-600">{{ Session::get('success') }}</span>.
+    <strong>Well done!</strong> <span class="text-bold-600">{{ Session::get('success') }}</span>
   </div>
   <script>
 
     $(document).ready(function(){
-        setTimeout(function(){ toastr.success("{{ Session::get('success') }}", 'CBE System Says', {"hideDuration": 500, positionClass: 'toast-top-right'}); }, 2000);
+        setTimeout(function(){ toastr.success("{{ Session::get('success') }}", 'PX System Says', {"hideDuration": 500, positionClass: 'toast-top-right'}); }, 2000);
     });
 
   </script>
@@ -74,7 +72,7 @@
   <script>
 
     $(document).ready(function(){
-        setTimeout(function(){ toastr.error('You must fill in all of the required fields!', 'CBE System Says', {"hideDuration": 500, positionClass: 'toast-top-right'}); }, 2000);
+        setTimeout(function(){ toastr.error('You must fill in all of the required fields!', 'PX System Says', {"hideDuration": 500, positionClass: 'toast-top-right'}); }, 2000);
     });
 
   </script>
@@ -85,7 +83,7 @@
     <section id="header-footer">
       <div class="row">
         <div class="col-12 mt-1 mb-1"> 
-          <p>Manage all blogs.</p>
+          <p>Manage all blog posts.</p>
         </div>
       </div>
       @if(!$blogs->isEmpty())

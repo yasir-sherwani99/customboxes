@@ -33,7 +33,6 @@
                                 <ul>
                                   <!--  <li><a href="about.html">About Us</a></li> -->
                                     <li><a href="{{ route('contact_us.index') }}"><i class="icon-map-marker"></i>Contact Us</a></li>
-                                    <li> | </li>
                                     <li>
                                         @if (Route::has('login'))
                                         @auth

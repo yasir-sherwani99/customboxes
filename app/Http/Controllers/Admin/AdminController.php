@@ -16,6 +16,8 @@ use App\User;
 use App\Admin;
 use App\Faq;
 use App\Subscriber;
+use App\Slider;
+use App\Banner;
 
 use Session;
 
@@ -77,6 +79,12 @@ class AdminController extends Controller
     	return view('admin.pages.settings.contact_index', compact('contact'));
     }
 
+    public function editContact($id)
+    {
+        $contact = General::findOrFail($id);
+        return view('admin.pages.settings.contact_edit', compact('contact'));   
+    }
+
     public function updateContact(Request $request, $id)
     {
 		
@@ -112,6 +120,12 @@ class AdminController extends Controller
     {
     	$social = General::findOrFail(1);
     	return view('admin.pages.settings.social_index', compact('social'));	
+    }
+
+    public function editSocialMedia($id)
+    {
+        $social = General::findOrFail(1);
+        return view('admin.pages.settings.social_edit', compact('social'));   
     }
 
     public function updateSocialMedia(Request $request, $id)
@@ -161,6 +175,241 @@ class AdminController extends Controller
         Session::flash('success', 'Emails updated successfully.');
         return redirect('admin_panel/emails');
 
+    }
+
+    public function indexSEO()
+    {
+        $seo = General::findOrFail(1);
+        return view('admin.pages.home_page.seo_index', compact('seo'));
+    }
+
+    public function updateSEO(Request $request, $id)
+    {
+        $request->validate([
+            'page_title' => 'required|string|max:60',
+            'page_description' => 'required|string|max:250',
+            'page_keywords' => 'required|string|max:191'
+        ]);
+
+        General::whereId($id)
+        ->update([
+            'page_title' => $request->page_title,
+            'page_description' => $request->page_description,
+            'page_keywords' => $request->page_keywords
+        ]);
+
+        Session::flash('success', 'Home page seo settings updated successfully.');
+        return redirect('admin_panel/seo_settings');
+
+    }
+
+    public function editHomePageContents()
+    {
+        $home = General::findOrFail(1);
+        return view('admin.pages.home_page.edit_contents', compact('home'));
+    }
+
+    public function updateHomePageContents(Request $request, $id)
+    {
+        $request->validate([
+            'home_page_heading' => 'required|string|max:255',
+            'home_page_sub_heading' => 'required|string|max:255',
+            'home_page_description' => 'required|string|max:500'
+        ]);
+
+        General::whereId($id)
+        ->update([
+            'home_page_heading' => $request->home_page_heading,
+            'home_page_sub_heading' => $request->home_page_sub_heading,
+            'home_page_description' => $request->home_page_description
+        ]);
+
+        Session::flash('success', 'Home page contents updated successfully.');
+        return redirect('admin_panel/home_page/contents');        
+    }
+
+    public function indexHomePageBanners()
+    {
+        $banner = General::findOrFail(1);
+     //   $total_banners = count($banner);
+        
+        return view('admin.pages.home_page.index_banners', compact('banner'));
+    }
+
+    public function createHomePageBanners()
+    {
+        return view('admin.pages.home_page.create_banner');   
+    }
+
+    public function editHomePageBanners($id, $banner_name)
+    {
+        $banner = General::findOrFail($id);
+        return view('admin.pages.home_page.edit_banner', compact('banner', 'banner_name'));
+    }
+
+    public function updateHomePageBanners(Request $request, $id)
+    {
+        $request->validate([
+            'banner_image' => 'required|mimes:jpeg,png,jpg,gif,svg',
+        ]);
+
+        $general = General::findOrFail($id);
+
+        if ($request->hasFile('banner_image')) {
+
+            if($request->banner_name == 'home_page_banner_1') {
+                if(isset($general->$general->home_page_banner_1)) {
+                    @unlink('admin/app-assets/images/banners/'.$general->home_page_banner_1);
+                }
+            } elseif($request->banner_name == 'home_page_banner_2') {
+                if(isset($general->$general->home_page_banner_2)) {
+                    @unlink('admin/app-assets/images/banners/'.$general->home_page_banner_2);
+                }
+            } elseif($request->banner_name == 'home_page_banner_3') {
+                if(isset($general->$general->home_page_banner_3)) {
+                    @unlink('admin/app-assets/images/banners/'.$general->home_page_banner_3);
+                }
+            } else {
+                if(isset($general->$general->home_page_banner_4)) {
+                    @unlink('admin/app-assets/images/banners/'.$general->home_page_banner_4);
+                }
+            }
+
+            $image = $request->file('banner_image');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $location = 'admin/app-assets/images/banners/'. $filename;
+            if($request->banner_name == 'home_page_banner_1') {
+                $banner = Image::make($image)->resize(470, 510);    
+            } elseif($request->banner_name == 'home_page_banner_2') {
+                $banner = Image::make($image)->resize(275, 510);
+            } elseif($request->banner_name == 'home_page_banner_3') {
+                $banner = Image::make($image)->resize(370, 245);
+            } else {
+                $banner = Image::make($image)->resize(370, 245);
+            }
+            
+            $banner->save($location);
+
+        }
+
+        if($request->banner_name == 'home_page_banner_1') {
+            $general->home_page_banner_1 = $filename;    
+        } elseif($request->banner_name == 'home_page_banner_2') {
+            $general->home_page_banner_2 = $filename;
+        } elseif($request->banner_name == 'home_page_banner_3') {
+            $general->home_page_banner_3 = $filename;
+        } else {
+            $general->home_page_banner_4 = $filename;
+        }
+        
+        $general->save();
+
+        Session::flash('success', 'Banner image updated successfully.');
+        return redirect('admin_panel/home_page/banners');        
+    }
+
+    public function indexSlider()
+    {
+        $sliders = Slider::orderBy('created_at', 'ASC')->get();
+        return view('admin.pages.sliders.index', compact('sliders')); 
+    }
+
+    public function createSlider()
+    {
+        return view('admin.pages.sliders.create');
+    }
+
+    public function storeSlider(Request $request)
+    {
+
+        $request->validate([
+            'title' => 'required|string|max:191',
+            'slider_image' => 'required|mimes:jpeg,png,jpg,gif,svg',
+            'status' => 'required'
+        ]);
+
+        $slider = Slider::create([
+                    'title' => $request->title,
+                    'status' => $request->status
+                  ]);
+
+        $general = Slider::findOrFail($slider->id);
+
+        if ($request->hasFile('slider_image')) {
+
+            $image = $request->file('slider_image');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $location = 'admin/app-assets/images/slider/'. $filename;
+            $img_big = Image::make($image)->resize(1920, 670);
+            $img_big->save($location);
+
+        }
+
+        $general->image = $filename;
+        $general->save();
+
+        Session::flash('success', 'Slider created successfully.');
+        return redirect('admin_panel/slider');
+
+    }
+
+    public function editSlider($id)
+    {
+        $slider = Slider::findOrFail($id);
+        return view('admin.pages.sliders.edit', compact('slider'));
+    }
+
+    public function updateSlider(Request $request, $id)
+    {
+        
+        $request->validate([
+            'title' => 'required|string|max:191',
+            'slider_image' => 'mimes:jpeg,png,jpg,gif,svg',
+            'status' => 'required'
+        ]);
+
+        Slider::whereId($id)
+        ->update([
+            'title' => $request->title,
+            'status' => $request->status
+        ]);
+
+        if ($request->hasFile('slider_image')) {
+
+            $general = Slider::findOrFail($id);
+            if(isset($general->image)){
+                @unlink('admin/app-assets/images/slider/'.$general->image);
+            }
+
+            $image = $request->file('slider_image');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $location = 'admin/app-assets/images/slider/'. $filename;
+            $img_big = Image::make($image)->resize(1920, 670);
+            $img_big->save($location);
+
+            $general->image = $filename;
+            $general->save();
+
+        }
+
+        Session::flash('success', 'Slider updated successfully.');
+        return redirect('admin_panel/slider');
+
+    }
+
+    public function destroySlider($id)
+    {
+        
+        $slider = Slider::findOrFail($id);
+        if(isset($slider->image)){
+            @unlink('admin/app-assets/images/slider/'.$slider->image);
+        }
+
+        $slider->delete();
+
+        Session::flash('success', 'Slider deleted successfully.');
+        return redirect('admin_panel/slider');
+    
     }
 
     public function indexBanner()

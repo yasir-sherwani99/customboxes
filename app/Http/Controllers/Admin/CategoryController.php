@@ -42,15 +42,25 @@ class CategoryController extends Controller
     	
     	$request->validate([
 		    'title' => 'required|string|unique:categories|max:191',
-		    'main_cat' => 'required',
+		//    'slug' => 'required|alpha_dash|max:250|unique:categories,slug',
+            'main_cat' => 'required',
+            'page_title' => 'nullable|string|max:57',
+            'page_description' => 'nullable|string|max:250',
+            'page_keywords' => 'nullable|string|max:191',
 		    'image' => 'required',
             'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
 		    'status' => 'required'
 		]);
 
+        $slug = str_slug($request->title, '-');
+
 		$category = Category::create([
 			            'title' => $request->title,
 			            'main_category' => $request->main_cat,
+                        'page_title' => $request->page_title,
+                        'page_description' => $request->page_description,
+                        'page_keywords' => $request->page_keywords,
+                        'slug' => $request->slug,
 			            'status' => $request->status
 		        	]);
 
@@ -80,7 +90,7 @@ class CategoryController extends Controller
     public function edit($id)
     {
 		
-        $category = Category::select('categories.id as id', 'categories.title as title', 'categories.status as status', 'main_categories.id as main_category_id', 'main_categories.title as main_category_title')
+        $category = Category::select('categories.id as id', 'categories.title as title', 'categories.page_title as page_title', 'categories.page_description as page_description', 'categories.page_keywords as page_keywords', 'categories.slug as slug', 'categories.status as status', 'main_categories.id as main_category_id', 'main_categories.title as main_category_title')
                               ->join('main_categories', 'categories.main_category', '=', 'main_categories.id')
                               ->where('categories.id', $id)
                               ->first();
@@ -113,15 +123,25 @@ class CategoryController extends Controller
     	
     	$request->validate([
 		    'title' => 'required|string|max:191',
+            'slug' => 'required|alpha_dash|max:250',
 		    'main_cat' => 'required',
+            'page_title' => 'nullable|string|max:57',
+            'page_description' => 'nullable|string|max:250',
+            'page_keywords' => 'nullable|string|max:191',
 		    'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
 		    'status' => 'required'
 		]);
+
+    //    $slug = str_slug($request->title, '-');
 
         Category::whereId($id)
                 ->update([
                     'title' => $request->title,
                     'main_category' => $request->main_cat,
+                    'page_title' => $request->page_title,
+                    'page_description' => $request->page_description,
+                    'page_keywords' => $request->page_keywords,
+                    'slug' => $request->slug,
                     'status' => $request->status
                 ]);
 

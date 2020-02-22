@@ -3,11 +3,12 @@
         <div class="mobile-menu-wrapper">
             <span class="mobile-menu-close"><i class="icon-close"></i></span>
 
-            <form action="#" method="get" class="mobile-search">
+            <form method="post" action="{{ route('search') }}" class="mobile-search">
+                {{ csrf_field() }}
                 <label for="mobile-search" class="sr-only">Search</label>
-                <input type="search" class="form-control" name="mobile-search" id="mobile-search" placeholder="Search in..." required>
-                <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
-            </form>
+                <input type="search" class="form-control" id="mobile-search" name="q" placeholder="Search products..." required>
+                <button class="btn btn-primary" name="submit" type="submit"><i class="icon-search"></i></button>
+            </form> 
             
             <nav class="mobile-nav">
                 <ul class="mobile-menu">
@@ -23,13 +24,13 @@
 
                     @endphp
                     <li>
-                        <a href="{{ route('category.all.index', 1) }}">Industry Boxes</a>
+                        <a href="{{ route('category.all.index', 'industry-boxes') }}">Industry Boxes</a>
                         <ul>
                             @foreach($industries as $industry)
-                            <li><a href="{{ route('category.index', $industry->id) }}">{{ $industry->title }}</a></li>
+                            <li><a href="{{ route('industry-boxes.category.index', $industry->slug) }}">{{ $industry->title }}</a></li>
                             @endforeach
                             <hr class="mb-1 mt-1"/>
-                            <li class="active"><a href="{{ route('category.all.index', 1) }}">View All</a></li>
+                            <li class="active"><a href="{{ route('category.all.index', 'industry-boxes') }}">View All</a></li>
                         </ul>
                     </li>
                     @php
@@ -41,13 +42,13 @@
 
                     @endphp
                     <li>
-                        <a href="{{ route('category.all.index', 2) }}">Style Boxes</a>
+                        <a href="{{ route('category.all.index', 'box-styles') }}">Style Boxes</a>
                         <ul>
                             @foreach($styles as $style)
-                            <li><a href="{{ route('category.index', $style->id) }}">{{ $style->title }}</a></li>
+                            <li><a href="{{ route('style-boxes.category.index', $style->slug) }}">{{ $style->title }}</a></li>
                             @endforeach
                             <hr class="mb-1 mt-1"/>
-                            <li class="active"><a href="{{ route('category.all.index', 2) }}">View All</a></li>
+                            <li class="active"><a href="{{ route('category.all.index', 'box-styles') }}">View All</a></li>
                         </ul>
                     </li>
                     @php
@@ -59,17 +60,20 @@
                     
                     @endphp
                     <li>
-                        <a href="{{ route('category.all.index', 3) }}">Other Products</a>
+                        <a href="{{ route('category.all.index', 'other-products') }}">Other Products</a>
                         <ul>
                             @foreach($others as $other)
-                            <li><a href="{{ route('category.index', $other->id) }}">{{ $other->title }}</a></li>
+                            <li><a href="{{ route('other-products.category.index', $other->slug) }}">{{ $other->title }}</a></li>
                             @endforeach
                             <hr class="mb-1 mt-1"/>
-                            <li class="active"><a href="{{ route('category.all.index', 3) }}">View All</a></li>
+                            <li class="active"><a href="{{ route('category.all.index', 'other-products') }}">View All</a></li>
                         </ul>
                     </li>
                     <li>
                         <a href="{{ route('blog.index') }}">Blog</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('quote.index') }}">Request Quote</a>
                     </li>
                 </ul>
             </nav><!-- End .mobile-nav -->

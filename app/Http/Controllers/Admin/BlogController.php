@@ -38,8 +38,11 @@ class BlogController extends Controller
 		    'title' => 'required|string|unique:blog_categories|max:191'
 		]);
 
+        $slug = str_slug($request->title, '-');
+
 		BlogCategory::create([
-            'title' => $request->title
+            'title' => $request->title,
+            'slug' => $slug
     	]);
 
     	Session::flash('success', 'Blog category created successfully.');
@@ -57,12 +60,15 @@ class BlogController extends Controller
     public function updateBlogCategory(Request $request, $id)
     {
 		$request->validate([
-		    'title' => 'required|string|unique:blog_categories|max:191'
+		    'title' => 'required|string|max:191'
 		]);
+
+        $slug = str_slug($request->title, '-');
 
 		BlogCategory::whereId($id)
 					->update([
-			            'title' => $request->title
+			            'title' => $request->title,
+                        'slug'  => $slug,
 			    	]);
 
     	Session::flash('success', 'Blog category updated successfully.');
@@ -89,19 +95,29 @@ class BlogController extends Controller
         
         $request->validate([
             'title' => 'required|string|unique:blogs|max:255',
+         //   'slug' => 'required|alpha_dash|max:250|unique:blogs,slug',
             'category' => 'required',
             'description' => 'required|string|min:100',
          //   'image' => 'required|mimes:jpeg,png,jpg,gif,svg',
             'tags' => 'required',
             'tags.*' => 'max:5|exists:categories,id',
+            'page_title' => 'nullable|string|max:57',
+            'page_description' => 'nullable|string|max:250',
+            'page_keywords' => 'nullable|string|max:191',
             'status' => 'required'
         ]);
+
+        $slug = str_slug($request->title, '-');
 
         $post = Blog::create([
             'admin_id' => 1,
             'title' => $request->title,
             'category_id' => $request->category,
             'description' => $request->description,
+            'page_title' => $request->page_title,
+            'page_description' => $request->page_description,
+            'page_keywords' => $request->page_keywords,
+            'slug' => $request->slug,
             'status' => $request->status
         ]);
 
@@ -121,7 +137,7 @@ class BlogController extends Controller
         $blog->tag()->sync($request->tags);
         $blog->save();
 
-        Session::flash('success', 'Blog created successfully.');
+        Session::flash('success', 'Blog post created successfully.');
         return redirect('admin_panel/blogs');
 
     }
@@ -144,13 +160,19 @@ class BlogController extends Controller
         
         $request->validate([
             'title' => 'required|string|max:255',
+            'slug' => 'required|alpha_dash|max:250',
             'category' => 'required',
             'description' => 'required|string|min:100',
          //   'image' => 'required|mimes:jpeg,png,jpg,gif,svg',
             'tags' => 'required',
             'tags.*' => 'max:5|exists:categories,id',
+            'page_title' => 'nullable|string|max:57',
+            'page_description' => 'nullable|string|max:250',
+            'page_keywords' => 'nullable|string|max:191',
             'status' => 'required'
         ]);
+
+    //    $slug = str_slug($request->title, '-');
 
         Blog::whereId($id)
         ->update([
@@ -158,6 +180,10 @@ class BlogController extends Controller
             'title' => $request->title,
             'category_id' => $request->category,
             'description' => $request->description,
+            'page_title' => $request->page_title,
+            'page_description' => $request->page_description,
+            'page_keywords' => $request->page_keywords,
+            'slug' => $request->slug,
             'status' => $request->status
         ]);
 
@@ -181,7 +207,7 @@ class BlogController extends Controller
         $blog->tag()->sync($request->tags);
         $blog->save();
 
-        Session::flash('success', 'Blog updated successfully.');
+        Session::flash('success', 'Blog post updated successfully.');
         return redirect('admin_panel/blogs');
 
     }

@@ -9,6 +9,7 @@ class MainCategory extends Model
     protected $fillable = [
         'title',
         'image',
+        'slug',
         'status'
     ];
 }

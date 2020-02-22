@@ -1,5 +1,17 @@
 @extends('welcome')
 
+@section('title')
+    {{ isset($blog->page_title) ? $blog->page_title : 'Packaging Expert | Blog Posts' }}
+@endsection
+
+@section('keywords')
+    {{ isset($blog->page_keywords) ? $blog->page_keywords : 'Packaging Expert | Blog Posts' }}
+@endsection
+
+@section('description')
+    {{ isset($blog->page_description) ? $blog->page_description : 'Packaging Expert | Blog Posts' }}
+@endsection
+
 @section('style')
 
 <link rel="stylesheet" href="{{ URL::asset('assets/css/plugins/nouislider/nouislider.css') }}">
@@ -12,7 +24,7 @@
 <main class="main">
     <div class="page-header text-center">
         <div class="container">
-            <h1 class="page-title">Post Details<span>Blog</span></h1>
+            <h1 class="page-title">Post Details<span style="color: #0A72E8 !important;">Blog</span></h1>
         </div><!-- End .container -->
     </div><!-- End .page-header -->
     <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
@@ -144,9 +156,10 @@
                         <div class="widget widget-search">
                             <h3 class="widget-title">Search</h3><!-- End .widget-title -->
 
-                            <form action="#">
-                                <label for="ws" class="sr-only">Search in blog</label>
-                                <input type="search" class="form-control" name="ws" id="ws" placeholder="Search in blog" required>
+                            <form name="search_blog" method="POST" action="{{ route('search_blog') }}">
+                                {{ csrf_field() }}
+                                <label for="ws" class="sr-only">Search in blogs</label>
+                                <input type="search" class="form-control" name="ws" id="ws" placeholder="Search in blogs" required>
                                 <button type="submit" class="btn"><i class="icon-search"></i><span class="sr-only">Search</span></button>
                             </form>
                         </div><!-- End .widget -->
@@ -215,6 +228,7 @@
             </div><!-- End .row -->
         </div><!-- End .container -->
     </div><!-- End .page-content -->
+    @include('front.partials._quote')
 </main><!-- End .main -->
 
 @endsection

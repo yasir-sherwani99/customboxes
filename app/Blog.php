@@ -13,6 +13,10 @@ class Blog extends Model
         'category_id',
         'description',
         'image',
+        'page_title',
+        'page_description',
+        'page_keywords',
+        'slug',
         'status'
     ];
 

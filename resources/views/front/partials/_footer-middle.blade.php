@@ -23,12 +23,12 @@
                                 <h4 class="widget-title">useful links</h4><!-- End .widget-title -->
 
                                 <ul class="widget-list">
-                                    <li><a href="#">About Us</a></li>
+                                    <li><a href="{{ route('about.index') }}">About Us</a></li>
                                     <li><a href="{{ route('login') }}">Sign Up</a></li>
-                                    <li><a href="#">Terms of Use</a></li>
+                                    <li><a href="{{ route('terms_of_use.index') }}">Terms of Use</a></li>
                                     <li><a href="{{ route('contact_us.index') }}">Contact us</a></li>
                                     <li><a href="{{ route('faq.index') }}">FAQ</a></li>
-                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="{{ route('privacy_policy.index') }}">Privacy Policy</a></li>
                                 </ul><!-- End .widget-list -->
                             </div><!-- End .widget -->
                         </div><!-- End .col-sm-4 col-lg-3 -->
@@ -44,7 +44,7 @@
                                 @endphp
                                 <ul class="widget-list">
                                     @foreach($industries as $industry)
-                                    <li><a href="{{ route('category.index', $industry->id) }}">{{ $industry->title }}</a></li>
+                                    <li><a href="{{ route('industry-boxes.category.index', $industry->slug) }}">{{ $industry->title }}</a></li>
                                     @endforeach
                                 </ul><!-- End .widget-list -->
                             </div><!-- End .widget -->
@@ -61,7 +61,7 @@
                                 @endphp
                                 <ul class="widget-list">
                                     @foreach($styles as $style)
-                                    <li><a href="{{ route('category.index', $style->id) }}">{{ $style->title }}</a></li>
+                                    <li><a href="{{ route('style-boxes.category.index', $style->slug) }}">{{ $style->title }}</a></li>
                                     @endforeach
                                 </ul><!-- End .widget-list -->
                             </div><!-- End .widget -->

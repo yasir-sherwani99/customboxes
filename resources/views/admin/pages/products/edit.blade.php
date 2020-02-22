@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('admin/app-assets/css/plugins/forms/validation/form-validation.css') }}">
 <script src="{{ URL::asset('admin/app-assets/js/core/libraries/jquery.min.js') }}" type="text/javascript"></script>
 <script src="{{ URL::asset('templateEditor/ckeditor/ckeditor.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ URL::asset('admin/app-assets/css/plugins/forms/extended/form-extended.css') }}">
 
 <script>
 
@@ -117,17 +118,13 @@
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a>
             </li>
-            <li class="breadcrumb-item"><a href="javascript:;">Products</a>
+            <li class="breadcrumb-item"><a href="javascript:;">{{ $main_category_title }}</a>
             </li>
-            <li class="breadcrumb-item active">Edit
+            <li class="breadcrumb-item active">Edit {{ $product->title }}
             </li>
           </ol>
         </div>
       </div>
-    </div>
-    
-    <div class="content-header-right col-md-3 col-12">
-      <a href="#" class="btn btn-sm btn-danger box-shadow-2 round btn-min-width pull-right">View All</a>
     </div>  
 
 @endsection
@@ -195,10 +192,30 @@
                 </div>
               </div>
               <div class="row">
+                <div class="col-md-12 col-12">
+                  <div class="form-group">
+                    <label for="slug" class="text-bold-600 black">Slug <span class="danger darken-4">*</span></label>
+                    <input type="text" id="slug" class="form-control" value="{{ $product->slug }}" required data-validation-required-message="Slug field is required" name="slug">
+                    <small>The <i>"slug"</i> is the URL-friendly version of the title. It is usually all lowercase and contains only letters, numbers and hypens.
+                    </small>
+                    <div class="help-block font-small-3"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 col-12">
+                  <div class="form-group">
+                    <label for="top_description" class="text-bold-600 black">Product Introduction <span class="danger darken-4">*</span></label>
+                      <textarea name="product_introduction" id="top_description" rows="5" class="form-control" required>{!! $product->description !!}</textarea>
+                    <div class="help-block font-small-3"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
                 <div class="col-md-6 col-12">
                   <div class="form-group">
-                    <label for="main_cat" class="text-bold-600 black">Main Category<span class="danger darken-4">*</span></label>
-                    <select name="main_cat" id="main_cat" class="form-control" required data-validation-required-message="Main category field is required">
+                    <label for="main_cat" class="text-bold-600 black">Parent Category<span class="danger darken-4">*</span></label>
+                    <select name="main_cat" id="main_cat" class="form-control" required data-validation-required-message="Parent category field is required">
                       <option value="{{ $main_category_id }}">{{ $main_category_title }}</option>
                       @foreach($main_categories as $main_cat)
                       <option value="{{ $main_cat->id }}">{{ $main_cat->title }}</option>
@@ -220,7 +237,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
+            <!--  <div class="row">
                 <div class="col-md-6 col-12">
                   <div class="form-group">
                     <label for="price" class="text-bold-600 black">Price<span class="danger darken-4">*</span></label>
@@ -235,12 +252,12 @@
                     <div class="help-block font-small-3"></div>
                   </div>
                 </div>
-              </div>
+              </div>  -->
               <div class="row">
                 <div class="col-md-12 col-12">
                   <div class="form-group">
-                    <label for="image" class="text-bold-600 black">Description <span class="danger darken-4">*</span></label>
-                      <textarea name="description" id="description" rows="5" class="form-control" required>{!! $product->description !!}</textarea>
+                    <label for="bottom_description" class="text-bold-600 black">Product Description <span class="danger darken-4">*</span></label>
+                      <textarea name="product_description" id="bottom_description" rows="5" class="form-control description" required>{!! $product->main_description !!}</textarea>
                     <div class="help-block font-small-3"></div>
                   </div>
                 </div>
@@ -330,82 +347,42 @@
   <div class="sidebar">
     <div class="sidebar-content card d-none d-lg-block">
       <div class="card-body">
-        <div class="category-title pb-2">
-          <h4 class="card-title">Product Specifications</h4>
-        </div> 
-        <div class="card-text">
-          <div class="form-body">
-            <div class="row">
-              <div class="col-md-12 col-12">
-                <div class="form-group">
-                  <label for="dimension" class="text-bold-600 black">Dimensions </label>
-                  <input type="text" id="dimension" class="form-control" value="{{ $product->product_specification->dimensions }}" name="dimension">
-                </div>
-              </div>
+        <div class="category-title pb-1">
+          <h6>SEO Settings</h6>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-12">
+            <div class="form-group">
+              <label for="page_title" class="text-bold-600 font-small-3">Title</label>
+              <input type="text" id="page_title" class="form-control always-show-maxlength" value="{{ $product->page_title }}" name="page_title" maxlength="57">
+              <small>Max 57 characters</small>
             </div>
-            <div class="row">
-              <div class="col-md-12 col-12">
-                <div class="form-group">
-                  <label for="print" class="text-bold-600 black">Printing </label>
-                  <input type="text" id="print" class="form-control" value="{{ $product->product_specification->printing }}" name="print">
-                </div>
-              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-12">
+            <div class="form-group">
+              <label for="page_description" class="text-bold-600 font-small-3">Description</label>
+              <textarea class="form-control textarea-maxlength" id="page_description" name="page_description" maxlength="250">{{ $product->page_description }}</textarea>
+              <small>Max 250 characters</small>
             </div>
-            <div class="row">
-              <div class="col-md-12 col-12">
-                <div class="form-group">
-                  <label for="stock" class="text-bold-600 black">Paper Stock </label>
-                  <textarea id="stock" class="form-control" rows="5" name="paper_stock">{{ $product->product_specification->paper_stock }}</textarea>
-                </div>
-              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-12">
+            <div class="form-group">
+              <label for="page_keyword" class="text-bold-600 font-small-3">Keywords</label>
+              <input type="text" id="page_keyword" class="form-control always-show-maxlength" value="{{ $product->page_keywords }}" name="page_keywords" maxlength="190">
+              <small>E.g. HTML, CSS, JavaScript</small>
             </div>
-            <div class="row">
-              <div class="col-md-12 col-12">
-                <div class="form-group">
-                  <label for="quantity" class="text-bold-600 black">Quantities </label>
-                  <input type="text" id="quantity" class="form-control" value="{{ $product->product_specification->quantities }}" name="quantity">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12 col-12">
-                <div class="form-group">
-                  <label for="coat" class="text-bold-600 black">Coating </label>
-                  <input type="text" id="coat" class="form-control" value="{{ $product->product_specification->coating }}" name="coat">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12 col-12">
-                <div class="form-group">
-                  <label for="default_process" class="text-bold-600 black">Default Process </label>
-                  <input type="text" id="default_process" class="form-control" value="{{ $product->product_specification->default_process }}" name="default_process">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12 col-12">
-                <div class="form-group">
-                  <label for="option" class="text-bold-600 black">Options </label>
-                  <input type="text" id="option" class="form-control" value="{{ $product->product_specification->options }}" name="option">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12 col-12">
-                <div class="form-group">
-                  <label for="proof" class="text-bold-600 black">Proof </label>
-                  <input type="text" id="proof" class="form-control" value="{{ $product->product_specification->proof }}" name="proof">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12 col-12">
-                <div class="form-group">
-                  <label for="turn_around_time" class="text-bold-600 black">Turn around time </label>
-                  <input type="text" id="turn_around_time" class="form-control" value="{{ $product->product_specification->turn_around_time }}" name="turn_around_time">
-                </div>
-              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-12">
+            <div class="form-group">
+              <label for="slug" class="text-bold-600 font-small-3">Slug</label>
+              <br/>
+              {{ $product->slug }}
             </div>
           </div>
         </div>
@@ -421,11 +398,19 @@
 
   <script type="text/javascript">
   
-    CKEDITOR.replace('description', {
+    CKEDITOR.replace('product_introduction', {
 
       removeButtons: 'Source,Save,NewPage,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Find,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Subscript,Superscript,CopyFormatting,RemoveFormat,CreateDiv,BidiLtr,BidiRtl,Language,Anchor,Flash,SpecialChar,PageBreak,Iframe,Maximize,ShowBlocks,About,Image,Table,Styles,Format,Font,FontSize,TextColor,Outdent,Indent,Blockquote,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,BGColor,Smiley',
 
       height: 110
+
+    });
+
+    CKEDITOR.replace('product_description', {
+
+      removeButtons: 'Source,Save,NewPage,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Find,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Subscript,Superscript,CopyFormatting,RemoveFormat,CreateDiv,BidiLtr,BidiRtl,Language,Anchor,Flash,SpecialChar,PageBreak,Iframe,Maximize,ShowBlocks,About,Image,Table,Styles,Format,Font,FontSize,TextColor,Outdent,Indent,Blockquote,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,BGColor,Smiley',
+
+      height: 210
 
     });
   
@@ -439,5 +424,7 @@
   type="text/javascript"></script>
   <script src="{{ URL::asset('admin/app-assets/js/scripts/forms/validation/form-validation.js') }}"
   type="text/javascript"></script>
+  <script src="{{ URL::asset('admin/app-assets/vendors/js/forms/extended/maxlength/bootstrap-maxlength.js') }}" type="text/javascript"></script>
+  <script src="{{ URL::asset('admin/app-assets/js/scripts/forms/extended/form-maxlength.js') }}" type="text/javascript"></script>
 
 @endsection

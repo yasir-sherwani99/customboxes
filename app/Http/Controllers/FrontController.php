@@ -15,6 +15,9 @@ use App\Blog;
 use App\BlogCategory;
 use App\General;
 use App\Faq;
+use App\Slider;
+use App\ProductSpecification;
+use App\Page;
 
 use DB;
 use Mail;
@@ -31,37 +34,15 @@ class FrontController extends Controller
     
         // Industry Boxes
         $industry_category_id = 1;
-        $industry_boxes = Category::where('main_category', $industry_category_id)
-                                  ->where('status', 1)
-                                  ->inRandomOrder()
-                                  ->limit(8)
-                                  ->get();    
+        $industry_boxes = $this->categories($industry_category_id);    
 
         // Style Boxes
         $style_category_id = 2;
-        $style_boxes = Category::where('main_category', $style_category_id)
-                                ->where('status', 1)
-                                ->inRandomOrder()
-                                ->limit(8)
-                                ->get();
+        $style_boxes = $this->categories($style_category_id);
 
         // Other Products
         $other_category_id = 3;
-        $other_products = Category::where('main_category', $other_category_id)
-                                  ->where('status', 1)  
-                                  ->inRandomOrder()
-                                  ->limit(8)
-                                  ->get();
-
-        $industry_category_ids = subCategory($industry_category_id);
-        $other_category_ids = subCategory($other_category_id);
-
-        $category_ids = array_merge($industry_category_ids, $other_category_ids);
-
-        $products = Product::whereIn('category_id', $category_ids)
-                           ->where('status', 1)
-                           ->orderBy('title', 'ASC')
-                           ->get();
+        $other_products = $this->categories($other_category_id);
 
         $blogs = Blog::where('status', 1)
                      ->orderBy('created_at', 'DESC')
@@ -69,12 +50,18 @@ class FrontController extends Controller
                      ->limit(3)
                      ->get();
 
-        return view('front.pages.index', compact('industry_boxes', 'style_boxes', 'other_products', 'products', 'blogs'));
+        $sliders = Slider::orderBy('created_at', 'DESC')->get();
+
+        $general = General::findOrFail(1);
+
+        return view('front.pages.index', compact('industry_boxes', 'style_boxes', 'other_products', 'blogs', 'sliders', 'general'));
 
     }
 
-    public function indexCategory($category_id)
+    public function industryBoxesCategories($slug)
     {
+
+        $category_id = Category::where('slug', $slug)->value('id');        
     
         $products = Product::where('category_id', $category_id)
                             ->where('status', 1)
@@ -84,34 +71,91 @@ class FrontController extends Controller
 
         $category_title = $category->title;
         $main_category_id = $category->main_category;
+        $page_title = $category->page_title;
+        $page_description = $category->page_description;
+        $page_keywords = $category->page_keywords;
 
         $main_category = MainCategory::findOrFail($main_category_id);
         $main_category_title = $main_category->title;
 
         $total_products_of_category = count($products); 
 
-        $other_categories = DB::table('categories')
-                              ->leftJoin('products','categories.id','=','products.category_id')
-                              ->select('categories.id as id', 'categories.title as title', DB::raw('ifnull(count(products.id),0) as total_products'))
-                              ->where('categories.id', '<>', $category_id)
-                              ->where('categories.main_category', $main_category_id)
-                              ->groupBy('categories.id')
-                              ->get();
+        $other_categories = $this->otherCategories($category_id, $main_category_id);
         
-        return view('front.pages.category', compact('products', 'category_title', 'main_category_title', 'total_products_of_category', 'other_categories'));
-    
+        return view('front.pages.category', compact('products', 'category_title', 'page_title', 'page_description', 'page_keywords', 'main_category_id', 'main_category_title', 'total_products_of_category', 'other_categories'));
+
     }
 
-    public function productDetails($product_id)
+    public function styleBoxesCategories($slug)
+    {
+        
+        $category_id = Category::where('slug', $slug)->value('id');        
+    
+        $products = Product::where('category_id', $category_id)
+                            ->where('status', 1)
+                            ->get();
+
+        $category = Category::findOrFail($category_id);
+
+        $category_title = $category->title;
+        $main_category_id = $category->main_category;
+        $page_title = $category->page_title;
+        $page_description = $category->page_description;
+        $page_keywords = $category->page_keywords;
+
+        $main_category = MainCategory::findOrFail($main_category_id);
+        $main_category_title = $main_category->title;
+
+        $total_products_of_category = count($products); 
+
+        $other_categories = $this->otherCategories($category_id, $main_category_id);
+        
+        return view('front.pages.category', compact('products', 'category_title', 'page_title', 'page_description', 'page_keywords', 'main_category_id', 'main_category_title', 'total_products_of_category', 'other_categories'));
+
+    }
+
+    public function otherProductsCategories($slug)
+    {
+        
+        $category_id = Category::where('slug', $slug)->value('id');        
+    
+        $products = Product::where('category_id', $category_id)
+                            ->where('status', 1)
+                            ->get();
+
+        $category = Category::findOrFail($category_id);
+
+        $category_title = $category->title;
+        $main_category_id = $category->main_category;
+        $page_title = $category->page_title;
+        $page_description = $category->page_description;
+        $page_keywords = $category->page_keywords;
+
+        $main_category = MainCategory::findOrFail($main_category_id);
+        $main_category_title = $main_category->title;
+
+        $total_products_of_category = count($products); 
+
+        $other_categories = $this->otherCategories($category_id, $main_category_id);
+        
+        return view('front.pages.category', compact('products', 'category_title', 'page_title', 'page_description', 'page_keywords', 'main_category_id', 'main_category_title', 'total_products_of_category', 'other_categories'));
+
+    }
+
+    public function productDetails($slug)
     {
     	
+        $product_id = Product::where('slug', $slug)->value('id');
         $product = Product::findOrFail($product_id);
+        
         $category_id = $product->category_id;
         $other_products = Product::where('id', '<>', $product_id)
                                  ->where('category_id', $category_id)
                                  ->get();
 
-        return view('front.pages.product_details', compact('product', 'other_products'));	
+        $specification = ProductSpecification::findOrFail(1);
+
+        return view('front.pages.product_details', compact('product', 'other_products', 'specification'));	
     
     }
 
@@ -207,30 +251,26 @@ class FrontController extends Controller
         return view('front.pages.quote_complete');
     }
 
-    public function viewAllCategories($main_category_id)
+    public function viewAllCategories($slug)
     {
         
-        if($main_category_id == 1){
-            $main_category_title = "Industry Boxes";
-        }elseif($main_category_id == 2){
-            $main_category_title = "Style Boxes";
-        }else{
-            $main_category_title = "Other Products";
-        }
-
-        $categories = Category::select('categories.id as id', 'categories.title as title', DB::raw('ifnull(count(products.id),0) as total_products'))
+        $main_category_id = MainCategory::where('slug', $slug)->value('id');
+        $main_category_title = MainCategory::where('id', $main_category_id)->value('title');
+        
+        $categories = Category::select('categories.id as id', 'categories.title as title', 'categories.slug as slug', DB::raw('ifnull(count(products.id),0) as total_products'))
                                ->leftJoin('products','categories.id','=','products.category_id')
                                ->where('categories.main_category', $main_category_id)  
                                ->groupBy('categories.id')
-                               ->paginate(8); 
+                               ->paginate(12); 
  
-        return view('front.pages.categories_all', compact('main_category_title', 'categories'));
+        return view('front.pages.categories_all', compact('main_category_id', 'main_category_title', 'categories'));
 
     }
 
     public function contactIndex()
     {
-        return view('front.pages.contact_us');
+        $contact = General::findOrFail(1);
+        return view('front.pages.contact_us', compact('contact'));
     }
 
     public function contactStore(Request $request)
@@ -306,12 +346,15 @@ class FrontController extends Controller
     public function blogIndex()
     {
         
-        $blogs = Blog::where('status', 1)->orderBy('created_at', 'DESC')->paginate(8);
+        $blogs = Blog::where('status', 1)
+                     ->orderBy('created_at', 'DESC')
+                     ->paginate(8);
+        
         $total_posts = Blog::where('status', 1)->count();
         
         $other_categories = DB::table('blog_categories')
                               ->leftJoin('blogs','blog_categories.id','=','blogs.category_id')
-                              ->select('blog_categories.id as id', 'blog_categories.title as title', DB::raw('ifnull(count(blogs.id),0) as total_posts'))
+                              ->select('blog_categories.id as id', 'blog_categories.title as title', 'blog_categories.slug as cat_slug', DB::raw('ifnull(count(blogs.id),0) as total_posts'))
                               ->groupBy('blog_categories.id')
                               ->orderBy('blog_categories.title', 'ASC')
                               ->get();
@@ -320,9 +363,10 @@ class FrontController extends Controller
     
     }
 
-    public function blogShow($id)
+    public function blogShow($slug)
     {
     
+        $id = Blog::where('slug', $slug)->value('id');
         $blog = Blog::findOrFail($id);
         $other_blogs = Blog::where('id', '<>', $id)
                            ->where('category_id', $blog->category_id)
@@ -348,6 +392,98 @@ class FrontController extends Controller
     {
         $faqs = Faq::orderBy('created_at', 'ASC')->get();
         return view('front.pages.faq', compact('faqs'));
+    }
+
+    public function aboutIndex()
+    {
+        $about = Page::findOrFail(1);
+        return view('front.pages.about', compact('about'));
+    }
+
+    public function termsIndex()
+    {
+        $terms = Page::findOrFail(2);
+        return view('front.pages.terms_of_use', compact('terms'));
+    }
+
+    public function privacyIndex()
+    {
+        $privacy = Page::findOrFail(3);
+        return view('front.pages.privacy_policy', compact('privacy'));
+    }
+
+    public function categories($category_id)
+    {
+
+        $products = Category::where('main_category', $category_id)
+                            ->where('status', 1)  
+                            ->inRandomOrder()
+                            ->limit(8)
+                            ->get();
+
+        return $products;                      
+
+    }
+
+    public function otherCategories($category_id, $main_category_id)
+    {
+        
+        $other_categories = DB::table('categories')
+                            ->leftJoin('products','categories.id','=','products.category_id')
+                            ->select('categories.id as id', 'categories.title as title', 'categories.slug as slug', DB::raw('ifnull(count(products.id),0) as total_products'))
+                            ->where('categories.id', '<>', $category_id)
+                            ->where('categories.main_category', $main_category_id)
+                            ->groupBy('categories.id')
+                            ->get();
+
+        return $other_categories;
+
+    }
+
+    public function search(Request $request)
+    {
+        $data = $request->q;
+        if($data != "") {
+
+            $products = Product::where('title', 'LIKE', '%' . $data . '%')
+                               ->orWhere('slug', 'LIKE', '%' . $data . '%')
+                               ->get();
+
+            $total_products_of_category = count($products);
+
+            return view('front.pages.search', compact('data', 'products', 'total_products_of_category'));
+        } else {
+
+            $data = null;
+            $products = collect();
+            $total_products_of_category = 0;            
+            
+            return view('front.pages.search', compact('data', 'products', 'total_products_of_category'));
+        }   
+    }
+
+    public function searchBlog(Request $request)
+    {
+        $keyword = $request->ws;
+
+        $blogs = Blog::where('title', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('slug', 'LIKE', '%' . $keyword . '%')
+                    ->where('status', 1)
+                    ->paginate(8);
+
+        $total_posts = Blog::where('title', 'LIKE', '%' . $keyword . '%')
+                          ->orWhere('slug', 'LIKE', '%' . $keyword . '%')
+                          ->where('status', 1)
+                          ->count();
+        
+        return view('front.pages.blog_search', compact('keyword', 'blogs', 'total_posts'));                  
+    }
+
+    public function pageNotFound()
+    {
+        $general = General::findOrFail(1);
+        $email = $general->email;
+        return view('error.404', compact('email'));
     }
     	
 }

@@ -12,8 +12,6 @@
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a>
             </li>
-            <li class="breadcrumb-item"><a href="javascript:;">Settings</a>
-            </li>
             <li class="breadcrumb-item"><a href="javascript:;">Messages</a>
             </li>
             <li class="breadcrumb-item active">Details
@@ -73,7 +71,7 @@
       <div id="invoice-company-details" class="row">
         <div class="col-md-6 col-sm-12 text-center text-md-left">
           <div class="media">
-            <img src="{{ URL::asset('assets/images/logos/Logo_new_others.png') }}" class="footer-logo" alt="CustomBoxesExpert Logo">
+            <img src="{{ URL::asset('assets/images/logos/Logo-WS-2.png') }}" class="footer-logo" alt="PackagingXpert Logo">
           <!--  <div class="media-body">
               <ul class="ml-2 px-0 list-unstyled">
                 <li class="text-bold-800">Modern Creative Studio</li>

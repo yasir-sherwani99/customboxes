@@ -1,5 +1,17 @@
 @extends('welcome')
 
+@section('title')
+    {{ 'Packaging Expert | Blog Posts' }}
+@endsection
+
+@section('keywords')
+    {{ 'Packaging Expert | Blog Posts' }}
+@endsection
+
+@section('description')
+    {{ 'Packaging Expert | Blog Posts' }}
+@endsection
+
 @section('style')
 
 <script src="{{ URL::asset('admin/app-assets/js/core/libraries/jquery.min.js') }}" type="text/javascript"></script>
@@ -17,9 +29,9 @@
 @section('content')
 
 <main class="main">
-    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+    <div class="page-header text-center" style="background-image: url('/assets/images/page-header-bg.jpg')">
         <div class="container">
-            <h1 class="page-title">Blog<span>Blog</span></h1>
+            <h1 class="page-title">Blog<span style="color: #0A72E8 !important;">Posts</span></h1>
         </div><!-- End .container -->
     </div><!-- End .page-header -->
     <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
@@ -37,17 +49,17 @@
                 <ul class="menu-cat entry-filter justify-content-center">
                     <li class="active"><a href="#" data-filter="*">All Blog Posts<span>{{ $total_posts }}</span></a></li>
                     @foreach($other_categories as $category)
-                    <li><a href="#" data-filter=".{{ $category->title }}">{{ $category->title }}<span>{{ $category->total_posts }}</span></a></li>
+                    <li><a href="#" data-filter=".{{ $category->cat_slug }}">{{ $category->title }}<span>{{ $category->total_posts }}</span></a></li>
                     @endforeach
                 </ul><!-- End .blog-menu -->
             </nav><!-- End .blog-nav -->
 
             <div class="entry-container max-col-4" data-layout="fitRows">
                 @foreach($blogs as $blog)
-                <div class="entry-item {{ $blog->blog_category->title }} col-sm-6 col-md-4 col-lg-3">
+                <div class="entry-item {{ $blog->blog_category->slug }} col-sm-6 col-md-4 col-lg-3">
                     <article class="entry entry-grid text-center">
                         <figure class="entry-media">
-                            <a href="{{ route('blog.show', $blog->id) }}">
+                            <a href="{{ route('blog.show', $blog->slug) }}">
                                 <img src="{{ URL::asset('admin/app-assets/images/blogs/'.$blog->image) }}" class="img-fluid" alt="Post image">
                             </a>
                         </figure><!-- End .entry-media -->
@@ -64,8 +76,8 @@
                                 <a href="#">2 Comments</a> -->
                             </div><!-- End .entry-meta -->
 
-                            <h2 class="entry-title">
-                                <a href="{{ route('blog.show', $blog->id) }}">{{ $blog->title }}</a>
+                            <h2 class="entry-title" style="font-weight: 600;">
+                                <a href="{{ route('blog.show', $blog->slug) }}">{{ $blog->title }}</a>
                             </h2><!-- End .entry-title -->
 
                             <div class="entry-cats">
@@ -85,7 +97,7 @@
                             @endphp
                             <div class="entry-content">
                                 <p>{!! $description !!}</p>
-                                <a href="{{ route('blog.show', $blog->id) }}" class="read-more">Continue Reading</a>
+                                <a href="{{ route('blog.show', $blog->slug) }}" class="read-more">Continue Reading</a>
                             </div><!-- End .entry-content -->
                         </div><!-- End .entry-body -->
                     </article><!-- End .entry -->
@@ -98,6 +110,7 @@
             </nav>
         </div><!-- End .container -->
     </div><!-- End .page-content -->
+    @include('front.partials._quote')
 </main><!-- End .main -->
 
 @endsection

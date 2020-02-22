@@ -14,7 +14,7 @@
 }
 
 .icon-box-title {
-	color: #333333;
+	color: #000000 !important;
 	font-weight: 400;
 	font-size: 1.8rem;
 	letter-spacing: -.025em;
@@ -33,6 +33,7 @@
 
 .icon-box-content p:last-child {
 	margin-bottom: 0;
+	color: #333333 !important;
 }
 
 .icon-box-left {

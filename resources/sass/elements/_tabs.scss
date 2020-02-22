@@ -95,7 +95,8 @@
 
 		&:hover,
 		&:focus {
-			color: $primary-color;
+			color: $primary-color-dark !important;
+			border-bottom-color: $primary-color-dark !important;
 		}
 
 		&:focus {
@@ -110,9 +111,9 @@
 
 		&.show .nav-link,
 		.nav-link.active {
-			color: $primary-color;
-			border-color: #d7d7d7;
-			border-bottom-color: $primary-color;
+			color: $primary-color-dark !important;
+			border-color: $primary-color-dark !important;
+			border-bottom-color: $primary-color-dark !important;
 		}
 	}
 }

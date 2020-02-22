@@ -75,7 +75,7 @@
 		&:hover,
 		&:focus,
 		&.active {
-			color: $primary-color;
+			color: $primary-color !important;
 		}
 
 		&.active {

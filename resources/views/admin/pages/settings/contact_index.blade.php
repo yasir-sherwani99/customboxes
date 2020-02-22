@@ -10,17 +10,15 @@
 @section('breadcrums')
 	
 	  <div class="content-header-left col-md-12 col-12 mb-2 breadcrumb-new">
-      <h3 class="content-header-title mb-0 d-inline-block">Contact</h3>
+      <h3 class="content-header-title mb-0 d-inline-block">Contact Info</h3>
       <div class="row breadcrumbs-top d-inline-block">
         <div class="breadcrumb-wrapper col-12">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a>
             </li>
-            <li class="breadcrumb-item"><a href="javascript:;">Settings</a>
+            <li class="breadcrumb-item"><a href="javascript:;">Website Settings</a>
             </li>
-            <li class="breadcrumb-item"><a href="javascript:;">Client Portal</a>
-            </li>
-            <li class="breadcrumb-item active">Contact
+            <li class="breadcrumb-item active">Contact Info
             </li>
           </ol>
         </div>
@@ -42,7 +40,7 @@
   <script>
 
     $(document).ready(function(){
-        setTimeout(function(){ toastr.success("{{ Session::get('success') }}", 'CBE System Says', {"hideDuration": 500, positionClass: 'toast-top-right'}); }, 2000);
+        setTimeout(function(){ toastr.success("{{ Session::get('success') }}", 'PX System Says', {"hideDuration": 500, positionClass: 'toast-top-right'}); }, 2000);
     });
 
   </script>
@@ -63,7 +61,7 @@
   <script>
 
     $(document).ready(function(){
-        setTimeout(function(){ toastr.error('You must fill in all of the required fields!', 'CBE System Says', {"hideDuration": 500, positionClass: 'toast-top-right'}); }, 2000);
+        setTimeout(function(){ toastr.error('You must fill in all of the required fields!', 'PX System Says', {"hideDuration": 500, positionClass: 'toast-top-right'}); }, 2000);
     });
 
   </script>
@@ -73,91 +71,80 @@
   <div class="content-body">
     <section id="css-classes" class="card">
       <div class="card-header">
-        <h4 class="card-title float-left">Contact Details</h4>
-        <p class="float-right"><span class="text-bold-600 danger darken-4">*</span> These fields are required</p>
+        <h4 class="card-title float-left">Contact Info</h4>
+        <p class="float-right"><a href="{{ route('admin.contact.edit', $contact->id) }}" title="edit contacts"><i class="la la-edit"></i></a></p>
       </div>
       <div class="card-content">
         <div class="card-body">
           <div class="card-text">
-            <form class="form" method="POST" action="{{ route('admin.contact.update', $contact->id) }}" novalidate>
-            {{ csrf_field() }}
-            {{ method_field('put') }}
             <div class="form-body">
               <div class="row">
                 <div class="col-md-12 col-12">
                   <div class="form-group">
-                    <label for="business" class="text-bold-600 black">Business Title <span class="danger darken-4">*</span></label>
-                    <input type="text" id="business" class="form-control" value="{{ $contact->business_title }}" required data-validation-required-message="Business title field is required" name="title">
-                    <div class="help-block font-small-3"></div>
+                    <label for="business" class="text-bold-600 black">Business Title</label>
+                    <br/>
+                    {{ $contact->business_title }}
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6 col-12">
                   <div class="form-group">
-                    <label for="email" class="text-bold-600 black">Email <span class="danger darken-4">*</span></label>
-                    <input type="text" id="email" class="form-control" value="{{ $contact->email }}" required data-validation-required-message="Email field is required" name="email">
-                    <div class="help-block font-small-3"></div>
+                    <label for="email" class="text-bold-600 black">Email</label>
+                    <br/>
+                    {{ $contact->email }}
                   </div>
                 </div>
                 <div class="col-md-6 col-12">
                   <div class="form-group">
-                    <label for="phone" class="text-bold-600 black">Phone No. <span class="danger darken-4">*</span></label>
-                    <input type="text" id="phone" class="form-control" value="{{ $contact->phone }}" required data-validation-required-message="Phone field is required" name="mobile">
-                    <div class="help-block font-small-3"></div>
+                    <label for="phone" class="text-bold-600 black">Phone</label>
+                    <br/>
+                    {{ $contact->phone }}
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12 col-12">
                   <div class="form-group">
-                    <label for="street" class="text-bold-600 black">Street Address <span class="danger darken-4">*</span></label>
-                    <input type="text" id="street" class="form-control" value="{{ $contact->street_address }}" required data-validation-required-message="Street address field is required" name="street">
-                    <div class="help-block font-small-3"></div>
+                    <label for="street" class="text-bold-600 black">Street Address</label>
+                    <br/>
+                    {{ $contact->street_address }}
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6 col-12">
                   <div class="form-group">
-                    <label for="city" class="text-bold-600 black">City <span class="danger darken-4">*</span></label>
-                    <input type="text" id="city" class="form-control" value="{{ $contact->city }}" required data-validation-required-message="City field is required" name="city">
-                    <div class="help-block font-small-3"></div>
+                    <label for="city" class="text-bold-600 black">City</label>
+                    <br/>
+                    {{ $contact->city }}
                   </div>
                 </div>
                 <div class="col-md-6 col-12">
                   <div class="form-group">
-                    <label for="state" class="text-bold-600 black">State <span class="danger darken-4">*</span></label>
-                    <input type="text" id="state" class="form-control" value="{{ $contact->state }}" required data-validation-required-message="State field is required" name="state">
-                    <div class="help-block font-small-3"></div>
+                    <label for="state" class="text-bold-600 black">State</label>
+                    <br/>
+                    {{ $contact->state }}
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6 col-12">
                   <div class="form-group">
-                    <label for="zip" class="text-bold-600 black">Zip Code <span class="danger darken-4">*</span></label>
-                    <input type="text" id="zip" class="form-control" value="{{ $contact->zip }}" required data-validation-required-message="Zip code field is required" name="zip">
-                    <div class="help-block font-small-3"></div>
+                    <label for="zip" class="text-bold-600 black">Zip Code</label>
+                    <br/>
+                    {{ $contact->zip }}
                   </div>
                 </div>
                 <div class="col-md-6 col-12">
                   <div class="form-group">
-                    <label for="country" class="text-bold-600 black">Country <span class="danger darken-4">*</span></label>
-                    <input type="text" id="country" class="form-control" value="{{ $contact->country }}" required data-validation-required-message="Country field is required" name="country">
-                    <div class="help-block font-small-3"></div>
+                    <label for="country" class="text-bold-600 black">Country</label>
+                    <br/>
+                    {{ $contact->country }}
                   </div>
                 </div>
               </div>
             </div>
-        
-            <div class="form-actions text-center">
-              <button type="submit" class="btn btn-info btn-glow px-2">
-                 <span class="loading-spinner" style="display: none;"><i class="la la-refresh spinner"></i>&nbsp;Processing... Please wait.</span> 
-               <span class="without-load">Update</span>
-              </button>
-            </div>
-            </form>
           </div>
         </div>
       </div>

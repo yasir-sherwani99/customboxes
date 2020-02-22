@@ -7,6 +7,7 @@
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('admin/app-assets/css/plugins/forms/checkboxes-radios.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('admin/app-assets/css/plugins/forms/validation/form-validation.css') }}">
 <script src="{{ URL::asset('admin/app-assets/js/core/libraries/jquery.min.js') }}" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="{{ URL::asset('admin/app-assets/css/plugins/forms/extended/form-extended.css') }}">
 
 <script>
 
@@ -99,7 +100,7 @@
     </div>
     
     <div class="content-header-right col-md-3 col-12">
-      <a href="#" class="btn btn-sm btn-danger box-shadow-2 round btn-min-width pull-right">View All</a>
+      <a href="{{ route('admin.subcategory.index') }}" class="btn btn-sm btn-danger box-shadow-2 round btn-min-width pull-right">View All</a>
     </div>  
 
 @endsection
@@ -144,18 +145,18 @@
   </script>
 @endif
 
+<form class="form dropzone dropzone-area" id="dpz-btn-select-files" method="POST" action="{{ route('admin.subcategory.update', $category->id) }}" enctype="multipart/form-data" novalidate>
+{{ csrf_field() }}
+{{ method_field('put') }}
 <div class="content-detached content-left">
   <div class="content-body">
     <section id="css-classes" class="card">
       <div class="card-header">
-        <h4 class="card-title">Subcategory Details</h4>
+        <h4 class="card-title">Category Details</h4>
       </div>
       <div class="card-content">
         <div class="card-body">
           <div class="card-text">
-            <form class="form dropzone dropzone-area" id="dpz-btn-select-files" method="POST" action="{{ route('admin.subcategory.update', $category->id) }}" enctype="multipart/form-data" novalidate>
-            {{ csrf_field() }}
-            {{ method_field('put') }}
             <div class="form-body">
               <div class="row">
                 <div class="col-md-12 col-12">
@@ -169,8 +170,19 @@
               <div class="row">
                 <div class="col-md-12 col-12">
                   <div class="form-group">
-                    <label for="main" class="text-bold-600 black">Main Category <span class="danger darken-4">*</span></label>
-                    <select name="main_cat" id="main" class="form-control" required data-validation-required-message="Main category field is required">
+                    <label for="slug" class="text-bold-600 black">Slug <span class="danger darken-4">*</span></label>
+                    <input type="text" id="slug" class="form-control" value="{{ $category->slug }}" required data-validation-required-message="Slug field is required" name="slug">
+                    <small>The <i>"slug"</i> is the URL-friendly version of the title. It is usually all lowercase and contains only letters, numbers and hypens.
+                    </small>
+                    <div class="help-block font-small-3"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 col-12">
+                  <div class="form-group">
+                    <label for="main" class="text-bold-600 black">Parent Category <span class="danger darken-4">*</span></label>
+                    <select name="main_cat" id="main" class="form-control" required data-validation-required-message="Parent category field is required">
                       <option value="{{ $category->main_category_id }}">{{ $category->main_category_title }}</option>
                       @foreach($main_categories as $main_cat)
                       <option value="{{ $main_cat->id }}">{{ $main_cat->title }}</option>
@@ -240,18 +252,66 @@
             </div>
         
             <div class="form-actions text-center">
-              <button type="submit" class="btn btn-info round btn-glow px-2">
+              <button type="submit" class="btn btn-info btn-glow px-2">
                  <span class="loading-spinner" style="display: none;"><i class="la la-refresh spinner"></i>&nbsp;Processing... Please wait.</span> 
                <span class="without-load">Update</span>
               </button>
             </div>
-            </form>
+            
           </div>
         </div>
       </div>
     </section>
   </div>
 </div>
+<div class="sidebar-detached sidebar-right">
+  <div class="sidebar">
+    <div class="sidebar-content card d-none d-lg-block">
+      <div class="card-body">
+        <div class="category-title pb-1">
+          <h6>SEO Settings</h6>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-12">
+            <div class="form-group">
+              <label for="page_title" class="text-bold-600 font-small-3">Title</label>
+              <input type="text" id="page_title" class="form-control always-show-maxlength" value="{{ $category->page_title }}" name="page_title" maxlength="57">
+              <small>Max 57 characters</small>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-12">
+            <div class="form-group">
+              <label for="page_description" class="text-bold-600 font-small-3">Description</label>
+              <textarea class="form-control textarea-maxlength" id="page_description" name="page_description" maxlength="250">{{ $category->page_description }}</textarea>
+              <small>Max 250 characters</small>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-12">
+            <div class="form-group">
+              <label for="page_keyword" class="text-bold-600 font-small-3">Keywords</label>
+              <input type="text" id="page_keyword" class="form-control always-show-maxlength" value="{{ $category->page_keywords }}" name="page_keywords" maxlength="190">
+              <small>E.g. HTML, CSS, JavaScript</small>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-12">
+            <div class="form-group">
+              <label for="slug" class="text-bold-600 font-small-3">Slug</label>
+              <br/>
+              {{ $category->slug }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
 
 @endsection
 
@@ -265,5 +325,7 @@
   type="text/javascript"></script>
   <script src="{{ URL::asset('admin/app-assets/js/scripts/forms/validation/form-validation.js') }}"
   type="text/javascript"></script>
+  <script src="{{ URL::asset('admin/app-assets/vendors/js/forms/extended/maxlength/bootstrap-maxlength.js') }}" type="text/javascript"></script>
+  <script src="{{ URL::asset('admin/app-assets/js/scripts/forms/extended/form-maxlength.js') }}" type="text/javascript"></script>
 
 @endsection

@@ -3,7 +3,18 @@
                         @php
                             $general = \App\General::findOrFail(1);
                         @endphp
-                        <a href="tel:#">Call Us: +{{ $general->phone }}</a>
+                        <ul class="top-menu">
+                            <li>
+                                <a href="#">Contact Details</a>
+                                <ul class="sub-top-menu">
+                                    <li><a href="tel:#">Call: <span>{{ strtolower($general->phone) }}</span></a></li>
+                                    <li>
+                                        <a href="javascript:;">Email: <span>{{ strtolower($general->email) }}</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        
                        <!-- <div class="header-dropdown">
                             <a href="#">Usd</a>
                             <div class="header-menu">
@@ -30,15 +41,14 @@
                         <ul class="top-menu">
                             <li>
                                 <a href="#">Links</a>
-                                <ul>
-                                    <li><a href="{{ route('contact_us.index') }}"><i class="icon-map-marker"></i>Contact Us</a></li>
-                                    <li> <a href="#">|</a> </li>
-                                    <li>
+                                <ul class="sub-top-menu">
+                                 <!--   <li><a href="{{ route('contact_us.index') }}"><i class="icon-map-marker"></i>Contact Us</a></li> -->
+                                    <li style="font-weight: 500;">
                                         @if (Route::has('login'))
                                         @auth
-                                        <a href="{{ route('home') }}"><i class="icon-home"></i>Dashboard</a>    
+                                        <a href="{{ route('home') }}">Dashboard</a>    
                                         @else
-                                        <a href="{{ route('login') }}"><i class="icon-user"></i>Login / Register</a>
+                                        <a href="{{ route('login') }}">Login / Register</a>
                                         @endauth
                                         @endif
                                     </li>

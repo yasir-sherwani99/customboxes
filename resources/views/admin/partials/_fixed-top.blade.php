@@ -9,7 +9,7 @@
               <h3 class="brand-text black text-bold-600"><u>Custom Boxes Expert</u></h3>
             </a> -->
             <a href="{{ route('admin.dashboard') }}" class="logo">
-                <img src="{{ URL::asset('assets/images/logos/Logo_new_others.png') }}" alt="Custom Boxes Expert Logo" class="img-fluid">
+                <img src="{{ URL::asset('assets/images/logos/Logo-WS-2.png') }}" alt="PackagingXpert Logo" class="img-fluid">
             </a>
           </li>
           <li class="nav-item d-md-none">

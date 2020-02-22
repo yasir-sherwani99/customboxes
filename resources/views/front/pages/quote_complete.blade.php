@@ -1,30 +1,29 @@
 @extends('welcome')
 
+@section('title')
+    {{ 'Packaging Expert | Request a Quote'  }}
+@endsection
+
+@section('keywords')
+    {{ 'Packaging Expert | Request a Quote' }}
+@endsection
+
+@section('description')
+    {{ 'Packaging Expert | Request a Quote' }}
+@endsection
+
 @section('style')
 
 <script src="{{ URL::asset('admin/app-assets/js/core/libraries/jquery.min.js') }}" type="text/javascript"></script>
-
-<script>
-
-$(document).ready(function(){
-
-    $(".filter_cat").click(function(){
-        var cat_id = $(this).val();
-        alert(id);        
-    });
-
-});
-
-</script>
 
 @endsection
 
 @section('content')
 
 <main class="main">
-    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+    <div class="page-header text-center" style="background-image: url('/assets/images/page-header-bg.jpg')">
         <div class="container">
-            <h1 class="page-title">Request a Quote<span>Get a free quote</span></h1>
+            <h1 class="page-title">Request a Quote<span style="color: #0A72E8 !important;">Get a free quote</span></h1>
         </div><!-- End .container -->
     </div><!-- End .page-header -->
     <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
@@ -57,6 +56,7 @@ $(document).ready(function(){
             </div><!-- End .row -->
         </div><!-- End .container -->
     </div><!-- End .page-content -->
+    @include('front.partials._quote')
 </main><!-- End .main -->
 
 @endsection

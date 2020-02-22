@@ -1,5 +1,17 @@
 @extends('welcome')
 
+@section('title')
+    {{ 'Packaging Expert | Client Dashboard' }}
+@endsection
+
+@section('keywords')
+    {{ 'Packaging Expert | Client Dashboard' }}
+@endsection
+
+@section('description')
+    {{ 'Packaging Expert | Client Dashboard' }}
+@endsection
+
 @section('style')
 
 <script src="{{ URL::asset('admin/app-assets/js/core/libraries/jquery.min.js') }}" type="text/javascript"></script>
@@ -20,6 +32,19 @@ $(document).ready(function(){
 
 </script>
 
+<style>
+
+.btn-outline-primary-2 {
+    border: 2px solid #ff726f !important;
+    color: #ff726f !important;
+}
+.btn-outline-primary-2:hover {
+    background-color: #ff726f !important;
+    color: #ffffff !important;
+}
+
+</style>
+
 @endsection
 
 @section('content')
@@ -27,15 +52,14 @@ $(document).ready(function(){
 <main class="main">
     <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
         <div class="container">
-            <h1 class="page-title">My Account<span>Dashboard</span></h1>
+            <h1 class="page-title">My Account<span style="color: #0A72E8 !important;">Dashboard</span></h1>
         </div><!-- End .container -->
     </div><!-- End .page-header -->
     <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
         <div class="container">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Shop</a></li>
-                <li class="breadcrumb-item active" aria-current="page">My Account</li>
+                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
             </ol>
         </div><!-- End .container -->
     </nav><!-- End .breadcrumb-nav -->
@@ -140,8 +164,9 @@ $(document).ready(function(){
                                       {{ csrf_field() }}
                                     </form> 
                                 </p>
+                                <h4 class="heading-title text-left" style="font-weight: 600;">Welcome to Custom Boxes Expert</h4>
                                 <p>
-                                    <img src="{{ URL::asset('assets/images/demos/demo-24/slider/new_banner_2.jpg') }}" class="img-fluid" />
+                                    Our boxes are made from various stock obtained from recyclable to ribbed and cardboard sheets. It seems very easy to make a box. But there are number of steps that being followed for the preparation of each box. Initiating from scanning, assembling, printing, die cutting, lamination and pasting, all these steps require 100% perfection to make it into a box from sheets. Our boxes are manufactured in houses to ensure the 100% quality and promising care to fulfill the requirement of our valuable customer. Our products are eco-friendly because we create them from pure recyclable material to maintain healthy and green environment.
                                 </p>
                             </div><!-- .End .tab-pane -->
 
@@ -430,6 +455,7 @@ $(document).ready(function(){
             </div><!-- End .container -->
         </div><!-- End .dashboard -->
     </div><!-- End .page-content -->
+    @include('front.partials._quote')
 </main><!-- End .main -->
 
 @endsection

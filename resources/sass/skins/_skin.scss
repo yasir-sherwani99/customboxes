@@ -622,7 +622,9 @@ a:focus {
 
 .top-menu {
     span {
-        color: $primary-color;
+        font-weight: 500;
+        color: $secondary-color-dark !important;
+        text-transform: lowercase;
     }
 }
 
@@ -746,7 +748,7 @@ a:focus {
 .header-bottom {
     .menu>li>a {
         &:before {
-            background-color: $primary-color;
+            background-color: $primary-color-dark !important;
         }
     }
 }
@@ -1014,8 +1016,8 @@ a:focus {
     a {
         &:hover,
         &:focus {
-            color: $primary-color;
-            box-shadow: 0 1px 0 $primary-color;
+            color: #0A72E8 !important;
+            box-shadow: 0 1px 0 #0A72E8 !important;
         }
     }
 }
@@ -1042,7 +1044,7 @@ a:focus {
 .read-more {
     &:hover,
     &:focus {
-        box-shadow: 0 1px 0 0 $primary-color;
+        box-shadow: 0 1px 0 0 #0A72E8 !important;
     }
 }
 

@@ -10,17 +10,15 @@
 @section('breadcrums')
 	
 	  <div class="content-header-left col-md-12 col-12 mb-2 breadcrumb-new">
-      <h3 class="content-header-title mb-0 d-inline-block">Manage Email</h3>
+      <h3 class="content-header-title mb-0 d-inline-block">Email Settings</h3>
       <div class="row breadcrumbs-top d-inline-block">
         <div class="breadcrumb-wrapper col-12">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a>
             </li>
-            <li class="breadcrumb-item"><a href="javascript:;">Settings</a>
+            <li class="breadcrumb-item"><a href="javascript:;">Website Settings</a>
             </li>
-            <li class="breadcrumb-item"><a href="javascript:;">Client Portal</a>
-            </li>
-            <li class="breadcrumb-item active">Email
+            <li class="breadcrumb-item active">Email Settings
             </li>
           </ol>
         </div>
@@ -42,7 +40,7 @@
   <script>
 
     $(document).ready(function(){
-        setTimeout(function(){ toastr.success("{{ Session::get('success') }}", 'CBE System Says', {"hideDuration": 500, positionClass: 'toast-top-right'}); }, 2000);
+        setTimeout(function(){ toastr.success("{{ Session::get('success') }}", 'PX System Says', {"hideDuration": 500, positionClass: 'toast-top-right'}); }, 2000);
     });
 
   </script>
@@ -63,7 +61,7 @@
   <script>
 
     $(document).ready(function(){
-        setTimeout(function(){ toastr.error('You must fill in all of the required fields!', 'CBE System Says', {"hideDuration": 500, positionClass: 'toast-top-right'}); }, 2000);
+        setTimeout(function(){ toastr.error('You must fill in all of the required fields!', 'PX System Says', {"hideDuration": 500, positionClass: 'toast-top-right'}); }, 2000);
     });
 
   </script>
@@ -73,7 +71,7 @@
   <div class="content-body">
     <section id="css-classes" class="card">
       <div class="card-header">
-        <h4 class="card-title float-left">Manage Emails</h4>
+        <h4 class="card-title float-left">Email Settings</h4>
         <p class="float-right"><span class="text-bold-600 danger darken-4">*</span> These fields are required</p>
       </div>
       <div class="card-content">
@@ -95,7 +93,7 @@
                       </div> 
                       <input type="email" id="quotation" class="form-control" value="{{ $email->quotation_email }}" required data-validation-required-message="Quotation email field is required" name="quotation">
                     </div>
-                    <small>This email is for quotation purposes, it will used to received quotations.</small>
+                    <small>This email used to received quotations.</small>
                     <div class="help-block font-small-3"></div>
                   </div>
                 </div>
@@ -112,7 +110,7 @@
                       </div> 
                       <input type="email" id="contact" class="form-control" value="{{ $email->contact_email }}" required data-validation-required-message="Contact email field is required" name="contact">
                     </div>
-                    <small>This email is for contact purposes, it will used to received messages from contact us form.</small>
+                    <small>This email used to received messages from contact us form.</small>
                     <div class="help-block font-small-3"></div>
                   </div>
                 </div>

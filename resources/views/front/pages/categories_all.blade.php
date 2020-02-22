@@ -1,5 +1,17 @@
 @extends('welcome')
 
+@section('title')
+    {{ 'Packaging Expert | ' . $main_category_title }}
+@endsection
+
+@section('keywords')
+    {{ 'Packaging Expert | ' . $main_category_title }}
+@endsection
+
+@section('description')
+    {{ 'Packaging Expert | ' . $main_category_title }}
+@endsection
+
 @section('style')
 
 <link rel="stylesheet" href="{{ URL::asset('assets/css/plugins/nouislider/nouislider.css') }}">
@@ -17,9 +29,9 @@
 @section('content')
 
 <main class="main">
-    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+    <div class="page-header text-center" style="background-image: url('/assets/images/page-header-bg.jpg')">
         <div class="container">
-            <h1 class="page-title">{{ $main_category_title }}<span>Shop</span></h1>
+            <h1 class="page-title">{{ $main_category_title }}<span style="color: #0A72E8 !important;">Shop</span></h1>
         </div><!-- End .container -->
     </div><!-- End .page-header -->
     <nav aria-label="breadcrumb" class="breadcrumb-nav breadcrumb-with-filter">
@@ -42,12 +54,24 @@
                         <div class="banner banner-cat banner-badge">
                             @foreach($category->category as $key => $image)
                                 @if($key == 0)
-                                <a href="{{ route('category.index', $category->id) }}">
-                                    <img src="{{ URL::asset('admin/app-assets/images/categories/'.$image->image) }}" alt="{{ $category->title }} image">
-                                </a>
+                                    @if($main_category_id == 1)
+                                    <a href="{{ route('industry-boxes.category.index', $category->slug) }}">
+                                    @elseif($main_category_id == 2)
+                                    <a href="{{ route('style-boxes.category.index', $category->slug) }}">
+                                    @elseif($main_category_id == 3)
+                                    <a href="{{ route('other-products.category.index', $category->slug) }}">
+                                    @endif
+                                        <img src="{{ URL::asset('admin/app-assets/images/categories/'.$image->image) }}" alt="{{ $category->title }} image">
+                                    </a>
                                 @endif
-                            @endforeach    
-                            <a class="banner-link" href="{{ route('category.index', $category->id) }}">
+                            @endforeach 
+                            @if($main_category_id == 1)
+                            <a class="banner-link" href="{{ route('industry-boxes.category.index', $category->slug) }}">
+                            @elseif($main_category_id == 2)
+                            <a class="banner-link" href="{{ route('style-boxes.category.index', $category->slug) }}">
+                            @elseif($main_category_id == 3)
+                            <a class="banner-link" href="{{ route('other-products.category.index', $category->slug) }}">
+                            @endif   
                                 <h3 class="banner-title">{{ $category->title }}</h3><!-- End .banner-title -->
                                 <h4 class="banner-subtitle">{{ $category->total_products }} Products</h4><!-- End .banner-subtitle -->
                                 <span class="banner-link-text">Shop Now</span>
@@ -198,6 +222,7 @@
             </div><!-- End .sidebar-filter-wrapper -->
         </aside><!-- End .sidebar-filter -->
     </div><!-- End .page-content -->
+    @include('front.partials._quote')
 </main><!-- End .main -->
 
 @endsection

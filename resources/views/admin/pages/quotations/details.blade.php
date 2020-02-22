@@ -6,13 +6,13 @@
 @section('breadcrums')
 	
 	  <div class="content-header-left col-md-9 col-12 mb-2 breadcrumb-new">
-      <h3 class="content-header-title mb-0 d-inline-block">Quotations</h3>
+      <h3 class="content-header-title mb-0 d-inline-block">Client Quotations</h3>
       <div class="row breadcrumbs-top d-inline-block">
         <div class="breadcrumb-wrapper col-12">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a>
             </li>
-            <li class="breadcrumb-item"><a href="javascript:;">Quotation</a>
+            <li class="breadcrumb-item"><a href="javascript:;">Quotations</a>
             </li>
             <li class="breadcrumb-item active">Details
             </li>
@@ -71,7 +71,7 @@
       <div id="invoice-company-details" class="row">
         <div class="col-md-6 col-sm-12 text-center text-md-left">
           <div class="media">
-            <img src="{{ URL::asset('assets/images/logos/Logo_new_others.png') }}" class="footer-logo" alt="CustomBoxesExpert Logo">
+            <img src="{{ URL::asset('assets/images/logos/Logo-WS-2.png') }}" class="footer-logo" alt="PackagingXpert Logo">
           <!--  <div class="media-body">
               <ul class="ml-2 px-0 list-unstyled">
                 <li class="text-bold-800">Modern Creative Studio</li>

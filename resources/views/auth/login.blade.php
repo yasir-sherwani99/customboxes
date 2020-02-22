@@ -1,12 +1,43 @@
 @extends('welcome')
 
+@section('title')
+    {{ 'Packaging Expert | Login/Register'  }}
+@endsection
+
+@section('keywords')
+    {{ 'Packaging Expert | Login/Register' }}
+@endsection
+
+@section('description')
+    {{ 'Packaging Expert | Login/Register' }}
+@endsection
+
 @section('style')
+
+<style>
+
+.btn-outline-primary-2 {
+    border: 1px solid #0A72E8 !important;
+    color: #0A72E8 !important;
+}
+.btn-outline-primary-2:hover {
+    background-color: #0A72E8 !important;
+    color: #ffffff !important;
+}
+
+</style>
+
 @endsection
 
 @section('content')
 
 <main class="main">
-    <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+    <div class="page-header text-center" style="background-image: url('/assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">Login / Register<span style="color: #0A72E8 !important;">Member Area</span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav mb-0">
         <div class="container">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('home.index') }}">Home</a></li>
@@ -15,7 +46,7 @@
         </div><!-- End .container -->
     </nav><!-- End .breadcrumb-nav -->
 
-    <div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17" style="background-image: url('assets/images/backgrounds/login-bg-new-4.jpg')">
+    <div class="login-page pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17 bg-light-2" style="margin-bottom: -30px;">
         <div class="container">
             <div class="form-box">
                 @if (count($errors) > 0)
@@ -34,15 +65,15 @@
                 <div class="form-tab">
                     <ul class="nav nav-pills nav-fill" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link" id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="false">Sign In</a>
+                            <a class="nav-link active" id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="false">Sign In</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" id="register-tab-2" data-toggle="tab" href="#register-2" role="tab" aria-controls="register-2" aria-selected="true">Register</a>
+                            <a class="nav-link" id="register-tab-2" data-toggle="tab" href="#register-2" role="tab" aria-controls="register-2" aria-selected="true">Register</a>
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane fade" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2">
-                            <form method="post" action="{{ route('login') }}">
+                        <div class="tab-pane fade show active" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2">
+                            <form method="POST" action="{{ route('login') }}">
                                 {{ csrf_field() }}
                                 <div class="row">
                                     <div class="col-md-12 col-12">
@@ -87,7 +118,7 @@
                                 </div> --><!-- End .row -->
                             </div><!-- End .form-choice -->
                         </div><!-- .End .tab-pane -->
-                        <div class="tab-pane fade show active" id="register-2" role="tabpanel" aria-labelledby="register-tab-2">
+                        <div class="tab-pane fade" id="register-2" role="tabpanel" aria-labelledby="register-tab-2">
                             <form method="post" action="{{ route('register') }}">
                                 {{ csrf_field() }}
                                 <div class="row">
@@ -136,7 +167,7 @@
 
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="register-policy-2" required>
-                                        <label class="custom-control-label" for="register-policy-2">I agree to the <a href="#">privacy policy</a> *</label>
+                                        <label class="custom-control-label" for="register-policy-2">I agree to <a href="{{ route('terms_of_use.index') }}">terms</a> and the <a href="{{ route('privacy_policy.index') }}">privacy policy</a> *</label>
                                     </div><!-- End .custom-checkbox -->
                                 </div><!-- End .form-footer -->
                             </form>
@@ -157,6 +188,7 @@
             </div><!-- End .form-box -->
         </div><!-- End .container -->
     </div><!-- End .login-page section-bg -->
+    @include('front.partials._quote')
 </main><!-- End .main -->
 
 @endsection

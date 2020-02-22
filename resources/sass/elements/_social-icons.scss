@@ -27,7 +27,7 @@
 
 	&:hover,
 	&:focus {
-		color: $primary-color;
+		color: $primary-color !important;
 		border-color: $primary-color;
 		background-color: transparent;
 	}

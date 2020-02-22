@@ -23,9 +23,9 @@
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a>
             </li>
-            <li class="breadcrumb-item"><a href="javascript:;">Products</a>
+            <li class="breadcrumb-item"><a href="javascript:;">{{ $main_category_title }}</a>
             </li>
-            <li class="breadcrumb-item active">View all
+            <li class="breadcrumb-item active">Products
             </li>
           </ol>
         </div>
@@ -47,7 +47,7 @@
   <script>
 
     $(document).ready(function(){
-        setTimeout(function(){ toastr.success("{{ Session::get('success') }}", 'CBE System Says', {"hideDuration": 500, positionClass: 'toast-top-right'}); }, 2000);
+        setTimeout(function(){ toastr.success("{{ Session::get('success') }}", 'PX System Says', {"hideDuration": 500, positionClass: 'toast-top-right'}); }, 2000);
     });
 
   </script>
@@ -68,7 +68,7 @@
   <script>
 
     $(document).ready(function(){
-        setTimeout(function(){ toastr.error('You must fill in all of the required fields!', 'CBE System Says', {"hideDuration": 500, positionClass: 'toast-top-right'}); }, 2000);
+        setTimeout(function(){ toastr.error('You must fill in all of the required fields!', 'PX System Says', {"hideDuration": 500, positionClass: 'toast-top-right'}); }, 2000);
     });
 
   </script>
@@ -79,12 +79,12 @@
     <section id="header-footer">
       <div class="row">
         <div class="col-12 mt-1 mb-1">
-           <h4 class="text-uppercase">{{ $main_category }}</h4> 
-          <p>Manage {{ $main_category }}.</p>
+           <h4 class="text-uppercase">{{ $main_category_title }}</h4> 
+          <p>Manage {{ $main_category_title }} products.</p>
         </div>
       </div>
       @if(!$products->isEmpty())
-        @foreach($products->chunk(3) as $chunk)
+        @foreach($products->chunk(4) as $chunk)
         <div class="row match-height">
           @foreach($chunk as $data)
           <div class="col-xl-3 col-md-3 col-12">
@@ -134,7 +134,7 @@
                   <p class="card-text">{!! $description !!}</p>
                   <div class="mb-2">
                     <span class="float-left">${{ $data->price }}</span>  
-                    <span class="float-right"><a href="{{ route('admin.product.edit', $data->id) }}"><i class="la la-edit"></i> Edit</a></span>  
+                    <span class="float-right"><a href="{{ route('admin.product.edit', [$main_category_slug, $data->id]) }}"><i class="la la-edit"></i> Edit</a></span>  
                   </div>
                 </div>
               </div>

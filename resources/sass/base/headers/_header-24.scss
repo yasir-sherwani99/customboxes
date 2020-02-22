@@ -9,7 +9,7 @@
 }
 
 .sticky-wrapper .header-middle.fixed {
-	background-color: #222;
+	background-color: #FFFFFF !important;
 	padding-left: 3.15vw;
 	padding-right: 3.15vw;
 
@@ -33,7 +33,7 @@
 }
 .header-top {
 	display: flex;
-	border-bottom: .1rem solid rgba(235, 235, 235, .2);
+	border-bottom: 0rem solid #CFD8DC !important;
 	
 
 	.header-dropdown > a,
@@ -83,8 +83,8 @@
 }
 
 .menu > li > a {
+	display: flex !important;
     color: #333;
-    font-weight: 400;
     font-size: 1.4rem;
     letter-spacing: -.01em;
     padding: 3.5rem 3rem;
@@ -141,6 +141,46 @@
 	}
 }
 
+.wishlist .quote a {
+	color: #fcb941;
+    background-color: transparent;
+    border: 0.2rem solid #fcb941;	
+}
+
+.wishlist .quote a {
+	font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    border-radius: .5rem;
+    transition: all .3s;
+    padding: 1.1rem 2rem;
+}
+
+.wishlist .quote a:hover {
+	background-color: #fcb941;
+	color: #000000;
+}
+
+.wishlist .quote-others a {
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    background-color: transparent !important;
+	color: #ff726f !important;
+    text-transform: uppercase;
+    border-radius: .5rem;
+    transition: all .3s;
+    padding: 1.1rem 2rem;
+    border: 0.1rem solid #ff726f !important;
+}
+
+.wishlist .quote-others a:hover {
+	color: #ffffff !important;
+    background-color: #ff726f !important;
+    border: 0.1rem solid #ff726f !important;
+}
+
 .header {
 	.icon-search {
 		font-size: 2.6rem;
@@ -166,11 +206,15 @@
 	}
 }
 
+.menu li > a {
+	color: $primary-color-new !important;	
+}
+
 .menu li:hover > a,
 .menu li.show > a,
 .menu li.active > a {
-    color: $primary-color;
-    font-weight: 600;
+    color: $primary-color-dark !important;
+    font-weight: 500;
 }
 
 .btn-outline-primary-2 {
@@ -179,6 +223,9 @@
     background-image: none;
     border-color: $primary-color;;
     box-shadow: none;
+    border-radius: 5px !important;
+    font-weight: 600 !important;
+    border: 2px solid $primary-color !important; 
 }
 
 .btn-primary {

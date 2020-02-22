@@ -9,17 +9,15 @@
 @section('breadcrums')
 	
 	<div class="content-header-left col-md-9 col-12 mb-2 breadcrumb-new">
-      <h3 class="content-header-title mb-0 d-inline-block">Blog Categories</h3>
+      <h3 class="content-header-title mb-0 d-inline-block">Blog Category</h3>
       <div class="row breadcrumbs-top d-inline-block">
         <div class="breadcrumb-wrapper col-12">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a>
             </li>
-            <li class="breadcrumb-item"><a href="javascript:;">Blog</a>
-            </li>
             <li class="breadcrumb-item"><a href="javascript:;">Blog Category</a>
             </li>
-            <li class="breadcrumb-item active">New
+            <li class="breadcrumb-item active">New Blog Category
             </li>
           </ol>
         </div>

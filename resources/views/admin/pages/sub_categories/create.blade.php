@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('admin/app-assets/css/plugins/forms/checkboxes-radios.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('admin/app-assets/css/plugins/forms/validation/form-validation.css') }}">
 <script src="{{ URL::asset('admin/app-assets/js/core/libraries/jquery.min.js') }}" type="text/javascript"></script>
-
+<link rel="stylesheet" type="text/css" href="{{ URL::asset('admin/app-assets/css/plugins/forms/extended/form-extended.css') }}">
 <script>
 
   $(document).ready(function(){
@@ -29,15 +29,15 @@
 @section('breadcrums')
 	
 	  <div class="content-header-left col-md-9 col-12 mb-2 breadcrumb-new">
-      <h3 class="content-header-title mb-0 d-inline-block">New Subcategory</h3>
+      <h3 class="content-header-title mb-0 d-inline-block">New Category</h3>
       <div class="row breadcrumbs-top d-inline-block">
         <div class="breadcrumb-wrapper col-12">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a>
             </li>
-            <li class="breadcrumb-item"><a href="javascript:;">Subcategories</a>
+            <li class="breadcrumb-item"><a href="javascript:;">Categories</a>
             </li>
-            <li class="breadcrumb-item active">Create
+            <li class="breadcrumb-item active">New Category
             </li>
           </ol>
         </div>
@@ -90,17 +90,17 @@
   </script>
 @endif
 
+<form class="form" method="POST" action="{{ route('admin.subcategory.store') }}" enctype="multipart/form-data" novalidate>
+{{ csrf_field() }}
 <div class="content-detached content-left">
   <div class="content-body">
     <section id="css-classes" class="card">
       <div class="card-header">
-        <h4 class="card-title">Subcategory Details</h4>
+        <h4 class="card-title">Category Details</h4>
       </div>
       <div class="card-content">
         <div class="card-body">
           <div class="card-text">
-            <form class="form" method="POST" action="{{ route('admin.subcategory.store') }}" enctype="multipart/form-data" novalidate>
-            {{ csrf_field() }}
             <div class="form-body">
               <div class="row">
                 <div class="col-md-12 col-12">
@@ -111,12 +111,23 @@
                   </div>
                 </div>
               </div>
+            <!--  <div class="row">
+                <div class="col-md-12 col-12">
+                  <div class="form-group">
+                    <label for="slug" class="text-bold-600 black">Slug <span class="danger darken-4">*</span></label>
+                    <input type="text" id="slug" class="form-control" placeholder="Slug" required data-validation-required-message="Slug field is required" name="slug">
+                    <small>The <i>"slug"</i> is the URL-friendly version of the title. It is usually all lowercase and contains only letters, numbers and hypens.
+                    </small>
+                    <div class="help-block font-small-3"></div>
+                  </div>
+                </div>
+              </div> -->
               <div class="row">
                 <div class="col-md-12 col-12">
                   <div class="form-group">
-                    <label for="main" class="text-bold-600 black">Main Category <span class="danger darken-4">*</span></label>
-                    <select name="main_cat" id="main" class="form-control" required data-validation-required-message="Main category field is required">
-                      <option value="">Select Main Category</option>
+                    <label for="main" class="text-bold-600 black">Parent Category <span class="danger darken-4">*</span></label>
+                    <select name="main_cat" id="main" class="form-control" required data-validation-required-message="Parent category field is required">
+                      <option value="">Select Parent Category</option>
                       @foreach($main_categories as $main_cat)
                       <option value="{{ $main_cat->id }}">{{ $main_cat->title }}</option>
                       @endforeach
@@ -125,15 +136,6 @@
                   </div>
                 </div>
               </div>
-            <!--  <div class="row">
-                <div class="col-md-12 col-12">
-                  <div class="form-group">
-                    <label for="image" class="text-bold-600 black">Category Image <span class="danger darken-4">*</span></label>
-                    <input type="file" id="image" class="form-control" required data-validation-required-message="Category image field is required" name="cat_image">
-                    <div class="help-block font-small-3"></div>
-                  </div>
-                </div>
-              </div> -->
               <div class="row">
                 <div class="col-md-12 col-12">
                   <div class="form-group increment">
@@ -179,13 +181,52 @@
                <span class="without-load">Save</span>
               </button>
             </div>
-            </form>
+
           </div>
         </div>
       </div>
     </section>
   </div>
 </div>
+<div class="sidebar-detached sidebar-right">
+  <div class="sidebar">
+    <div class="sidebar-content card d-none d-lg-block">
+      <div class="card-body">
+        <div class="category-title pb-1">
+          <h6>SEO Settings</h6>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-12">
+            <div class="form-group">
+              <label for="page_title" class="text-bold-600 font-small-3">Title</label>
+              <input type="text" id="page_title" class="form-control always-show-maxlength" placeholder="Page title" name="page_title" maxlength="57">
+              <small>Max 57 characters</small>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-12">
+            <div class="form-group">
+              <label for="page_description" class="text-bold-600 font-small-3">Description</label>
+              <textarea class="form-control textarea-maxlength" id="page_description" name="page_description" placeholder="Page description" maxlength="250"></textarea>
+              <small>Max 250 characters</small>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-12">
+            <div class="form-group">
+              <label for="page_keyword" class="text-bold-600 font-small-3">Keywords</label>
+              <input type="text" id="page_keyword" class="form-control always-show-maxlength" placeholder="Page keywords" name="page_keywords" maxlength="190">
+              <small>E.g. HTML, CSS, JavaScript</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
 
 @endsection
 
@@ -197,5 +238,7 @@
   type="text/javascript"></script>
   <script src="{{ URL::asset('admin/app-assets/js/scripts/forms/validation/form-validation.js') }}"
   type="text/javascript"></script>
+  <script src="{{ URL::asset('admin/app-assets/vendors/js/forms/extended/maxlength/bootstrap-maxlength.js') }}" type="text/javascript"></script>
+  <script src="{{ URL::asset('admin/app-assets/js/scripts/forms/extended/form-maxlength.js') }}" type="text/javascript"></script>
 
 @endsection

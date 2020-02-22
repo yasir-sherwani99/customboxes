@@ -5,58 +5,36 @@
 
 <body>
     <div class="page-wrapper">
-        <div class="background" style="background-color: #00003f;">
+        <div style="{{ request()->path() == '/' ? 'border-bottom: 0.1rem solid rgba(235,235,235,0.2);' : '' }}">  
             <header class="header">
 
-            @if( request()->path() == '/')
-                
-                @include('front.partials._header-top')
-
-            @else
-
-                @include('front.partials._header-top-others')
-
-            @endif
-
-            @if( request()->path() == '/')
-
-                @include('front.partials._header-middle')
-
-            @else
+                @include('front.partials._header-top-others') 
 
                 @include('front.partials._header-middle-others')
 
-            @endif
 
             </header>
-
-            @php
-                $general = \App\General::findOrFail(1);
-            @endphp
-            <div class="background" style="background-image: url(assets/images/demos/demo-24/slider/{{ $general->banner_image }});">
-
-            @if( request()->path() == '/')
-                @include('front.partials._slider')
-            @endif
-
-            </div>  
 
         </div>                
 
         @yield('content')
 
-        <footer class="footer mt-3">
+        <footer class="footer bg-light">
 
-            @if( request()->path() == '/')
+        {{--    @if( request()->path() == '/')
                 @include('front.partials._footer-top')
-            @endif
+            @endif  
 
-            @if( request()->path() == '/')
+            @if( request()->path() == '/')  
                 @include('front.partials._footer-middle')
-            @else
+            @else   
                 @include('front.partials._footer-middle-others')
-            @endif
+            @endif  --}}
+
+            @include('front.partials._footer-middle-new')
             
+            @include('front.partials._footer-bottom')
+
         </footer>
     </div>
     <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>

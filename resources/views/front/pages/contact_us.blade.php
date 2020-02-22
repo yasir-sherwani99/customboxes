@@ -1,31 +1,43 @@
 @extends('welcome')
 
+@section('title')
+    {{ 'Packaging Expert | Contact us'  }}
+@endsection
+
+@section('keywords')
+    {{ 'Packaging Expert | Contact us' }}
+@endsection
+
+@section('description')
+    {{ 'Packaging Expert | Contact us' }}
+@endsection
+
 @section('style')
 
 <link rel="stylesheet" href="{{ URL::asset('assets/css/plugins/nouislider/nouislider.css') }}">
 <script src="{{ URL::asset('admin/app-assets/js/core/libraries/jquery.min.js') }}" type="text/javascript"></script>
 
-<script>
+<style>
 
-$(document).ready(function(){
+.btn-outline-primary-2 {
+    border: 1px solid #0A72E8 !important;
+    color: #0A72E8 !important;
+}
+.btn-outline-primary-2:hover {
+    background-color: #0A72E8 !important;
+    color: #ffffff !important;
+}
 
-    $(".filter_cat").click(function(){
-        var cat_id = $(this).val();
-        alert(id);        
-    });
-
-});
-
-</script>
+</style>
 
 @endsection
 
 @section('content')
 
 <main class="main">
-    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+    <div class="page-header text-center" style="background-image: url('/assets/images/page-header-bg.jpg')">
         <div class="container">
-            <h1 class="page-title">Get in touch<span>Contact us</span></h1>
+            <h1 class="page-title">Get in touch<span style="color: #0A72E8 !important;">Contact us</span></h1>
         </div><!-- End .container -->
     </div><!-- End .page-header -->
     <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
@@ -38,14 +50,16 @@ $(document).ready(function(){
     </nav><!-- End .breadcrumb-nav -->
 
     <div class="page-content">
-        <div id="map" class="mb-5"></div><!-- End #map -->
+        <div id="map" class="text-center mb-5">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3035.583674302107!2d-74.32954998510388!3d40.46235066078849!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c3c9439725095d%3A0xfcd7cf9183b7de36!2s101%20Lakeview%20Dr%2C%20Parlin%2C%20NJ%2008859%2C%20USA!5e0!3m2!1sen!2s!4v1578220277143!5m2!1sen!2s" width="1920" height="495" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+        </div><!-- End #map -->
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
                     <div class="contact-box text-center">
                         <h3>Office</h3>
 
-                        <address>1 New York Plaza, New York, <br>NY 10004, USA</address>
+                        <address>{{ $contact->street_address }}, {{ $contact->city }}<br>{{ $contact->state }}&nbsp;{{ $contact->zip }}, {{ $contact->country }}</address>
                     </div><!-- End .contact-box -->
                 </div><!-- End .col-md-4 -->
 
@@ -53,8 +67,8 @@ $(document).ready(function(){
                     <div class="contact-box text-center">
                         <h3>Start a Conversation</h3>
 
-                        <div><a href="mailto:#">info@Molla.com</a></div>
-                        <div><a href="tel:#">+1 987-876-6543</a>, <a href="tel:#">+1 987-976-1234</a></div>
+                        <div><a href="mailto:#">{{ $contact->email }}</a></div>
+                        <div><a href="tel:#">+{{ $contact->phone }}</a></div>
                     </div><!-- End .contact-box -->
                 </div><!-- End .col-md-4 -->
 
@@ -63,11 +77,11 @@ $(document).ready(function(){
                         <h3>Social</h3>
 
                         <div class="social-icons social-icons-color justify-content-center">
-                            <a href="#" class="social-icon social-facebook" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
-                            <a href="#" class="social-icon social-twitter" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
-                            <a href="#" class="social-icon social-instagram" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
-                            <a href="#" class="social-icon social-youtube" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
-                            <a href="#" class="social-icon social-pinterest" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                            <a href="{{ isset($contact->facebook) ? 'https://' . $contact->facebook : '#' }}" class="social-icon social-facebook" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                            <a href="{{ isset($contact->twitter) ? 'https://' . $contact->twitter : '#' }}" class="social-icon social-twitter" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                            <a href="{{ isset($contact->instagram) ? 'https://' . $contact->instagram : '#' }}" class="social-icon social-instagram" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+                            <a href="{{ isset($contact->youtube) ? 'https://' . $contact->youtube : '#' }}" class="social-icon social-youtube" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
+                            <a href="{{ isset($contact->pinterest) ? 'https://' . $contact->pinterest : '#' }}" class="social-icon social-pinterest" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
                         </div><!-- End .soial-icons -->
                     </div><!-- End .contact-box -->
                 </div><!-- End .col-md-4 -->
@@ -110,14 +124,13 @@ $(document).ready(function(){
                 </script>
             @endif
             <br/>
-            <div class="touch-container row justify-content-center">
+            <div class="touch-container row justify-content-center bg-light-2 pt-4 pb-4">
                 <div class="col-md-9 col-lg-7">
                     <div class="text-center">
-                    <h2 class="title mb-1">Get In Touch</h2><!-- End .title mb-2 -->
-                    <p class="lead text-primary">
-                        We collaborate with ambitious brands and people; we’d love to build something great together.
-                    </p><!-- End .lead text-primary -->
-                    <p class="mb-3">Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.</p>
+                        <h2 class="title mb-1">Get In Touch</h2><!-- End .title mb-2 -->
+                        <p class="lead mb-3" style="color: red !important;">
+                            We collaborate with ambitious brands and people; we’d love to build something great together.
+                        </p><!-- End .lead text-primary -->
                     </div><!-- End .text-center -->
 
                     <form action="{{ route('contact_us.store') }}" method="post" class="contact-form mb-2">
@@ -178,6 +191,7 @@ $(document).ready(function(){
             </div><!-- End .row -->
         </div><!-- End .container -->
     </div><!-- End .page-content -->
+    @include('front.partials._quote')
 </main><!-- End .main -->
 
 @endsection
